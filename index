@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NR REAL</title>
+  <link rel="icon" type="image/x-icon" href="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/20250512_234318.jpg">
+  <script>document.write(unescape("%3Cstyle%3E%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20font-family%3A%20'Segoe%20UI'%2C%20sans-serif%3B%0A%20%20%20%20%20%20background%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20padding%3A%200%3B%0A%20%20%20%20%7D%0A%20%20%20%20.container%20%7B%0A%20%20%20%20%20%20max-width%3A%201000px%3B%0A%20%20%20%20%20%20margin%3A%20auto%3B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.banner%20%7B%0A%20%20%20%20%20%20border-radius%3A%2020px%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%20%20box-shadow%3A%208px%208px%2015px%20%23d1d9e6%2C%20-8px%20-8px%2015px%20%23ffffff%3B%0A%20%20%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%7D%0A%20%20%20%20.slider-wrapper%20%7B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%7D%0A%20%20%20%20.slide%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20flex-shrink%3A%200%3B%0A%20%20%20%20%20%20transition%3A%20transform%200.5s%20ease-in-out%3B%0A%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.slide.active%20%7B%0A%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%7D%0A%20%20%20%20.prev%2C%20.next%20%7B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20%20%20transform%3A%20translateY(-50%25)%3B%0A%20%20%20%20%20%20background-color%3A%20rgba(255%2C%20255%2C%20255%2C%200.7)%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20padding%3A%2010px%2015px%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20font-size%3A%2018px%3B%0A%20%20%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20%20%20box-shadow%3A%202px%202px%205px%20%23aaa%3B%0A%20%20%20%20%7D%0A%20%20%20%20.prev%20%7B%20left%3A%2010px%3B%20%7D%0A%20%20%20%20.next%20%7B%20right%3A%2010px%3B%20%7D%0A%20%20%20%20.search-container%20%7B%0A%20%20%20%20%20%20margin%3A%2010px%200%2020px%3B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%7D%0A%20%20%20%20.search-container%20input%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20max-width%3A%20500px%3B%0A%20%20%20%20%20%20padding%3A%2012px%2020px%3B%0A%20%20%20%20%20%20border-radius%3A%2025px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20%20%20box-shadow%3A%20inset%203px%203px%206px%20%23d1d9e6%2C%20inset%20-3px%20-3px%206px%20%23ffffff%3B%0A%20%20%20%20%20%20background%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.marquee-container%20%7B%0A%20%20%20%20%20%20background%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20box-shadow%3A%20inset%204px%204px%208px%20%23d1d9e6%2C%20inset%20-4px%20-4px%208px%20%23ffffff%3B%0A%20%20%20%20%20%20border-radius%3A%2015px%3B%0A%20%20%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20%20%20margin%3A%2020px%200%3B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.marquee-container%20img%20%7B%0A%20%20%20%20%20%20width%3A%2024px%3B%0A%20%20%20%20%20%20height%3A%2024px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.marquee-text%20%7B%0A%20%20%20%20%20%20flex%3A%201%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%7D%0A%20%20%20%20.marquee-text%20marquee%20%7B%0A%20%20%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20%20%20color%3A%20orangered%3B%0A%20%20%20%20%7D%0A%20%20%20%20h2%20%7B%0A%20%20%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20%20%20color%3A%20black%3B%0A%20%20%20%20%20%20margin-bottom%3A%2015px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.grid%20%7B%0A%20%20%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20%20%20grid-template-columns%3A%20repeat(auto-fill%2C%20minmax(160px%2C%201fr))%3B%0A%20%20%20%20%20%20gap%3A%2012px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20%7B%0A%20%20%20%20%20%20background%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20border-radius%3A%2015px%3B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20box-shadow%3A%208px%208px%2012px%20%23d1d9e6%2C%20-8px%20-8px%2012px%20%23ffffff%3B%0A%20%20%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20transition%3A%20transform%200.2s%20ease%3B%0A%20%20%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20%20%20color%3A%20inherit%3B%0A%20%20%20%20%20%20height%3A%20260px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%3Ahover%20%7B%0A%20%20%20%20%20%20transform%3A%20translateY(-4px)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20img%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20%20%20margin-bottom%3A%208px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.label%20%7B%0A%20%20%20%20%20%20background-color%3A%20red%3B%0A%20%20%20%20%20%20color%3A%20white%3B%0A%20%20%20%20%20%20padding%3A%202px%208px%3B%0A%20%20%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20top%3A%2010px%3B%0A%20%20%20%20%20%20left%3A%2010px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20h2%20%7B%0A%20%20%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20%20%20margin%3A%206px%200%204px%3B%0A%20%20%20%20%20%20color%3A%20black%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20p%20%7B%0A%20%20%20%20%20%20color%3A%20%23ff6347%3B%0A%20%20%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20%20%20margin%3A%200%200%208px%3B%0A%20%20%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.cart-btn%20%7B%0A%20%20%20%20%20%20background-color%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20box-shadow%3A%203px%203px%206px%20%23d1d9e6%2C%20-3px%20-3px%206px%20%23ffffff%3B%0A%20%20%20%20%20%20border-radius%3A%2050%25%3B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20font-size%3A%2016px%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20bottom%3A%2010px%3B%0A%20%20%20%20%20%20right%3A%2010px%3B%0A%20%20%20%20%7D%0A%20%20%20%20%2F*%20---%20Kategori%20Scroll%20Horizontal%20(Baru)%20---%20*%2F%0A%20%20%20%20.kategori-scroll-container%20%7B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20flex-wrap%3A%20nowrap%3B%0A%20%20%20%20%20%20overflow-x%3A%20auto%3B%0A%20%20%20%20%20%20scroll-behavior%3A%20smooth%3B%0A%20%20%20%20%20%20-webkit-overflow-scrolling%3A%20touch%3B%0A%20%20%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20%20%20padding%3A%2010px%200%3B%0A%20%20%20%20%20%20margin-bottom%3A%2020px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.kategori-scroll-container%3A%3A-webkit-scrollbar%20%7B%0A%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.kategori-scroll-container%20button%20%7B%0A%20%20%20%20%20%20flex%3A%200%200%20auto%3B%0A%20%20%20%20%20%20white-space%3A%20nowrap%3B%0A%20%20%20%20%20%20padding%3A%2010px%2020px%3B%0A%20%20%20%20%20%20border-radius%3A%2025px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20background%3A%20%23f0f0f3%3B%0A%20%20%20%20%20%20box-shadow%3A%204px%204px%208px%20%23d1d9e6%2C%20-4px%20-4px%208px%20%23ffffff%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20font-size%3A%2014px%3B%0A%20%20%20%20%20%20color%3A%20hsl(236%2C%20100%25%2C%2050%25)%3B%0A%20%20%20%20%20%20transition%3A%20all%200.2s%20ease-in-out%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20min-width%3A%2080px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.kategori-scroll-container%20button%3Ahover%20%7B%0A%20%20%20%20%20%20background%3A%20%23e0e0e3%3B%0A%20%20%20%20%7D%0A%20%20%3C%2Fstyle%3E"));</script>
+  
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Banner Slider -->
+    <div class="banner">
+      <div class="slider-wrapper" id="sliderWrapper">
+        <img class="slide active" src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/06/1_20240615_193252_0000.png" alt="Banner 1">
+        <img class="slide" src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/06/2_20240615_193252_0001.png" alt="Banner 2">
+        <img class="slide" src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2024/06/3_20240615_193252_0002.png" alt="Banner 3">
+      </div>
+    </div>
+    <!-- Pencarian -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Cari produk..." onkeyup="filterProduk()">
+    </div>
+
+    <!-- Marquee -->
+    <script>document.write(unescape("%3Cdiv%20class%3D%22marquee-container%22%3E%0A%20%20%20%20%20%20%3Cimg%20src%3D%22https%3A%2F%2Fimg.icons8.com%2Fios-filled%2F50%2F000000%2Fmegaphone.png%22%20alt%3D%22Icon%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22marquee-text%22%3E%0A%20%20%20%20%20%20%20%20%3Cmarquee%20behavior%3D%22scroll%22%20direction%3D%22left%22%3ESemua%20Produk%20Digital%20Tersedi%2C%20Produk%20Digital%20pulsa%20topup%20game%20dan%20Agen%0A%20%20%20%20%20%20%20%20%20%20Payment%20kamu%20Dapat%20Download%20apk%20Nr%20Payment.%3C%2Fmarquee%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E"));</script>
+    <!-- Kategori -->
+   <div class="kategori-scroll-container">
+      <button onclick="filterKategori('semua')">Semua</button>
+      <button onclick="window.location.href='https://download.bukaolshop.com/files/apk/payment02.apk'">Demo</button>
+      <button onclick="filterKategori('ebook')">Ebook</button>
+      <button onclick="filterKategori('code')">Code</button>
+      <button onclick="filterKategori('anak')">Anak</button>
+      <button onclick="filterKategori('premium')">Premium</button>
+     
+    </div>
+    <!-- Produk Grid -->
+    <div class="grid" id="produkList">
+      <a href="http://lynk.id/nrreal2/on4r5g1x9y1p" class="card">
+        <span class="label">Ebook</span>
+        <img
+          src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/file_0000000060e061f9a78b675a1132e101.png"
+          alt="Panduan">
+        <h2>Panduan Berinvestasi</h2>
+        <p>Rp 50.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/e1nj1p5poexq" class="card">
+        <span class="label">code</span>
+        <img
+          src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/file_0000000016a8623089a67dae075f169d.png"
+          alt="Nasi Janda Kembang">
+        <h2>Sc Full Buka Olsop</h2>
+        <p>Rp 300.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/9vz42v2j3wqy" class="card">
+        <span class="label">code</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250603_202521.jpg"
+          alt="Nasi Janda Muda">
+        <h2>Sc Home</h2>
+        <p>Rp 20.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="http://lynk.id/nrreal2/ky5j6dwd3zrk" class="card">
+        <span class="label">code</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250603_203537.jpg">
+        <h2>Sc Katagori</h2>
+        <p>Rp 20.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="http://lynk.id/nrreal2/wv1mvmmz95zk" class="card">
+        <span class="label">code</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250606_152127.jpg">
+        <h2>SC TAMPILAN TOKO Shopee SIAP PAKAI</h2>
+        <p>Rp 85.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="http://lynk.id/nrreal2/ggoeq2d7gw30" class="card">
+        <span class="label">code</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/20250606_211210.jpg">
+        <h2>Sc Bloger website</h2>
+        <p>Rp 50.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+    
+      
+
+      <a href="http://lynk.id/nrreal2/egldmxegel7l" class="card">
+        <span class="label">Ebook</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/1749721330579.png">
+        <h2>Digital Marketing</h2>
+        <p>Rp 20.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="http://lynk.id/nrreal2/ke828274o636" class="card">
+        <span class="label">Ebook</span>
+        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/06/gemini_generated_image_a2lg6xa2lg6xa2lg.png">
+        <h2>EBOOK JAMU AYAM ADUAN: Rahasia Herbal Alami</h2>
+        <p>Rp 40.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      
+      
+<a href="http://lynk.id/nrreal2/v28g712rvov3" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/draft-products/16-06-2025/1750079426074_1692845.jpeg">
+        <h2>Sc Token Listrik</h2>
+        <p>Rp 30.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/pwg4mjev87rx" class="card">
+        <span class="label">Premium</span>
+        <img src="https://cdn.lynkid.my.id/products/18-06-2025/1750193164126_5044835.webp">
+        <h2>Gemini Premium 1 Bulan</h2>
+        <p>Rp 35.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/x2g7p0gmy7e1" class="card">
+        <span class="label">Premium</span>
+        <img src="https://cdn.lynkid.my.id/products/18-06-2025/1750193164126_5044835.webp">
+        <h2>Gemini Premium 1 Tahun</h2>
+        <p>Rp 150.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="http://lynk.id/nrreal2/2eKAAz6" class="card">
+        <span class="label">Premium</span>
+        <img src="https://cdn.lynkid.my.id/draft-products/20-06-2025/1750437800538_4761577.jpeg">
+        <h2>Lynk Premium 1 bulan</h2>
+        <p>Rp 99.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      
+<a href="http://lynk.id/nrreal2/9Lg77mo" class="card">
+        <span class="label">Premium</span>
+        <img src="https://cdn.lynkid.my.id/draft-products/20-06-2025/1750437800538_4761577.jpeg">
+        <h2>Lynk Premium 1 Tahun</h2>
+        <p>Rp 990.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/megpgm9m01gp" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/28-06-2025/1751049779051_1357367.webp">
+        <h2>Landing Page Ppob</h2>
+        <p>Rp 30.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/2ml60y98j6yx" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/25-06-2025/1750853031000_2827900.webp">
+        <h2>Source Code Pulsa All Operator</h2>
+        <p>Rp 30.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+       <a href="https://lynk.id/nrreal2/89nvm2j40p04" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/12-06-2025/1749713039458_6246827.webp">
+        <h2>Source Code Login & Pendaftaran</h2>
+        <p>Rp 10.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/gneo5w5mlzmy" class="card">
+        <span class="label">Ebook</span>
+        <img src="https://cdn.lynkid.my.id/products/27-06-2025/1750961296186_8008065.webp">
+        <h2>EBook Gratis Langganan Veo 3</h2>
+        <p>Rp 20.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/6zp5v3p6rr7x" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/29-06-2025/1751135391057_8740374.webp">
+        <h2>Source Code Poin</h2>
+        <p>Rp 15.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+       <a href="https://lynk.id/nrreal2/xq2kr4ljmw88" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/30-06-2025/1751230196501_4919393.webp">
+        <h2>Source Code Topup game</h2>
+        <p>Rp 30.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+       <a href="https://lynk.id/nrreal2/r3zrwvm49z6r" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/30-06-2025/1751224687623_8460110.webp">
+        <h2>Source Code All Ewallet</h2>
+        <p>Rp 30.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      
+<a href="http://lynk.id/nrreal2/q2lr3z7m6vrz" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/01-07-2025/1751310780790_3370835.webp">
+        <h2>Source Code Hide ktg Produk</h2>
+        <p>Rp 15.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+      
+      
+      <a href="http://lynk.id/nrreal2/0ldqjqqkppxe" class="card">
+        <span class="label">Code</span>
+        <img src="https://cdn.lynkid.my.id/products/01-07-2025/1751312216269_7446272.webp">
+        <h2>Source Code Game Ml</h2>
+        <p>Rp 25.000</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/8j8n7qmr4wml" class="card">
+        <span class="label">Anak</span>
+        <img src="https://cdn.lynkid.my.id/products/16-06-2025/1750075990235_1186021.webp">
+        <h2>BERBAGAI WORKSHEET ANAK | Free</h2>
+        <p>Free</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+      <a href="https://lynk.id/nrreal2/ygen29l0l468" class="card">
+        <span class="label">Anak</span>
+        <img src="https://cdn.lynkid.my.id/products/22-06-2025/1750602580611_7410248.webp">
+        <h2>31 LEMBAR WORKSHEET MEWARNAI | Free</h2>
+        <p>Free</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+     <a href="https://lynk.id/nrreal2/j27rr2owwr54" class="card">
+        <span class="label">Grub</span>
+        <img src="https://cdn.lynkid.my.id/products/08-06-2025/1749330614288_4565472.webp">
+        <h2>Grub Duskusi Ilmu Cuan | Free</h2>
+        <p>Free</p>
+        <button class="cart-btn">🛒</button>
+      </a>
+
+<br>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // Filter produk
+    function filterProduk() {
+      var input = document.getElementById("searchInput");
+      var filter = input.value.toLowerCase();
+      var grid = document.getElementById("produkList");
+      var cards = grid.getElementsByClassName("card");
+
+      for (var i = 0; i < cards.length; i++) {
+        var title = cards[i].getElementsByTagName("h2")[0];
+        if (title.innerText.toLowerCase().indexOf(filter) > -1) {
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+
+    // Banner Slide Otomatis
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) slide.classList.add("active");
+      });
+    }
+
+    function moveSlide(n) {
+      slideIndex += n;
+      if (slideIndex >= slides.length) slideIndex = 0;
+      if (slideIndex < 0) slideIndex = slides.length - 1;
+      showSlide(slideIndex);
+    }
+
+    function autoSlide() {
+      slideIndex++;
+      if (slideIndex >= slides.length) slideIndex = 0;
+      showSlide(slideIndex);
+    }
+
+    showSlide(slideIndex);
+    setInterval(autoSlide, 3000); // 3 detik
+  </script>
+  <script>
+    function filterKategori(kategori) {
+      const cards = document.querySelectorAll("#produkList .card");
+
+      cards.forEach(card => {
+        const label = card.querySelector(".label").textContent.toLowerCase();
+        if (kategori === "semua" || label.includes(kategori)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
