@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NR REAL</title>
   <link rel="icon" type="image/x-icon" href="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/05/20250512_234318.jpg">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="set.css">
 </head>
 
 <body>
@@ -251,65 +251,7 @@
   </div>
 
   <!-- SCRIPT -->
-  <script>
-    // Filter produk
-    function filterProduk() {
-      var input = document.getElementById("searchInput");
-      var filter = input.value.toLowerCase();
-      var grid = document.getElementById("produkList");
-      var cards = grid.getElementsByClassName("card");
-
-      for (var i = 0; i < cards.length; i++) {
-        var title = cards[i].getElementsByTagName("h2")[0];
-        if (title.innerText.toLowerCase().indexOf(filter) > -1) {
-          cards[i].style.display = "";
-        } else {
-          cards[i].style.display = "none";
-        }
-      }
-    }
-
-    // Banner Slide Otomatis
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slide");
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        if (i === index) slide.classList.add("active");
-      });
-    }
-
-    function moveSlide(n) {
-      slideIndex += n;
-      if (slideIndex >= slides.length) slideIndex = 0;
-      if (slideIndex < 0) slideIndex = slides.length - 1;
-      showSlide(slideIndex);
-    }
-
-    function autoSlide() {
-      slideIndex++;
-      if (slideIndex >= slides.length) slideIndex = 0;
-      showSlide(slideIndex);
-    }
-
-    showSlide(slideIndex);
-    setInterval(autoSlide, 3000); // 3 detik
-  </script>
-  <script>
-    function filterKategori(kategori) {
-      const cards = document.querySelectorAll("#produkList .card");
-
-      cards.forEach(card => {
-        const label = card.querySelector(".label").textContent.toLowerCase();
-        if (kategori === "semua" || label.includes(kategori)) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 
 </body>
 
