@@ -1,0 +1,59 @@
+body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Custom styling for category tags on product cards */
+        .product-tag {
+            color: white;
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+            padding: 0.25rem 0.5rem; /* px-2 py-1 */
+            border-radius: 9999px; /* rounded-full */
+        }
+        /* Specific tag colors based on image, similar to the original colors */
+        .product-tag.code {
+            background-color: #ef4444; /* Red-500 */
+        }
+        .product-tag.Ebook {
+            background-color: #22c55e; /* Green-500 */
+        }
+        .product-tag.Page {
+            background-color: #f97316; /* Orange-500 */
+        }
+        .product-tag.Elektronik {
+            background-color: #6366f1; /* Indigo-500 */
+        }
+
+        /* Sidebar specific styles */
+        .sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
