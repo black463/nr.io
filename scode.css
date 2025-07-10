@@ -1,4 +1,4 @@
-body {
+     body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f2f5;
         }
@@ -57,3 +57,42 @@ body {
             opacity: 1;
             visibility: visible;
         }
+
+        /* Share button specific styles (copied from previous example and adjusted) */
+        .share-buttons-modal button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 15px; /* Slightly smaller padding for modal */
+            margin-bottom: 8px; /* Slightly smaller margin */
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            gap: 8px;
+            font-size: 0.9rem; /* Slightly smaller font size */
+        }
+        .share-buttons-modal button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .share-buttons-modal button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .btn-whatsapp { background-color: #25D366; color: white; }
+        .btn-whatsapp:hover { background-color: #1DA851; }
+        .btn-facebook { background-color: #1877F2; color: white; }
+        .btn-facebook:hover { background-color: #145CB3; }
+        .btn-twitter { background-color: #1DA1F2; color: white; }
+        .btn-twitter:hover { background-color: #178CD8; }
+        .btn-webshare { background-color: #6C63FF; color: white; }
+        .btn-webshare:hover { background-color: #564EDD; }
+        .btn-copy { background-color: #e0e0e0; color: #333; }
+        .btn-copy:hover { background-color: #c0c0c0; }
+
+        .icon { width: 18px; height: 18px; fill: currentColor; } /* Slightly smaller icons for modal */
+    
