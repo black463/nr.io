@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="scode.css">
+    
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -26,7 +26,6 @@
     </header>
 
     <!-- Main Content - Product Grid -->
-    <!-- Added pb-16 (padding-bottom: 4rem) to ensure enough space at the bottom -->
     <main class="container mx-auto p-4 flex-grow pb-16">
         <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Product cards will be injected here by JavaScript -->
@@ -57,11 +56,59 @@
     <div id="orderModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-95 opacity-0" id="orderModalContent">
             <div class="p-6">
-                <h2 class="text-2xl font-bold mb-4 text-gray-800">Pesan Produk</h2>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Detail Produk & Pesan</h2>
                 <div id="selectedProductDetails" class="mb-4 p-3 bg-blue-50 rounded-md border border-blue-200">
                     <!-- Selected product details will be injected here -->
                 </div>
-                <form id="orderForm" class="space-y-4">
+
+                <!-- NEW: Share Buttons Section -->
+                <div class="share-buttons-modal border-t pt-4 mt-4">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Bagikan Produk Ini:</h3>
+                    <!-- Tombol Web Share API -->
+                    <button id="shareViaWebShareModal" class="btn-webshare">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.52.48 1.2.78 1.96.78 1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2c0 .24.04.47.09.7L7.05 11.2c-.52-.48-1.2-.78-1.96-.78-1.1 0-2 .9-2 2s.9 2 2 2c.76 0 1.44-.3 1.96-.77L15.09 16.3c-.05.23-.09.46-.09.7 0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                        <span>Bagikan via Aplikasi</span>
+                    </button>
+
+                    <!-- Tombol WhatsApp -->
+                    <button id="shareWhatsAppModal" class="btn-whatsapp">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.04 2c-5.45 0-9.91 4.46-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.47.8 3.14 1.23 4.74 1.23 5.45 0 9.91-4.46 9.91-9.91S17.49 2 12.04 2zm4.8 14.88c-.27.4-.59.45-.92.27-.33-.18-1.16-.58-1.34-.65-.18-.07-.31-.02-.44.15-.13.17-.51.65-.62.77-.11.12-.22.13-.41.06-.18-.07-.77-.28-1.47-.91-.54-.48-.91-1.07-1.01-1.24-.1-.17-.01-.26.06-.33.06-.06.15-.17.22-.26.07-.09.09-.17.13-.26.04-.09.02-.17-.01-.26-.03-.09-.27-.65-.37-.89-.11-.24-.22-.2-.3-.2-.07 0-.15-.02-.22-.02-.07 0-.18.02-.27.11-.09.09-.34.33-.34.81s.35.94.4.99c.05.05.69 1.07 1.67 1.5c.98.43 1.83.63 2.46.59.63-.04 1.16-.41 1.34-.66.18-.25.18-.46.12-.59-.05-.13-.18-.2-.37-.29z"/>
+                        </svg>
+                        <span>WhatsApp</span>
+                    </button>
+
+                    <!-- Tombol Facebook -->
+                    <button id="shareFacebookModal" class="btn-facebook">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 2H7c-2.76 0-5 2.24-5 5v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5zm-3.58 15.5H12v-6.5h-1.5V9h1.5V7.5c0-1.77.92-2.75 2.87-2.75h1.83v2.5h-1.2c-.85 0-.95.32-.95.93V9h2.5l-.33 2.5H14.42v6.5z"/>
+                        </svg>
+                        <span>Facebook</span>
+                    </button>
+
+                    <!-- Tombol Twitter -->
+                    <button id="shareTwitterModal" class="btn-twitter">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.49-1.75.85-2.72 1.05C18.18 4.29 17.1 4 16 4c-3.88 0-7 3.12-7 7 0 .55.06 1.09.17 1.61-3.23-.16-6.09-1.7-8.01-4.07-.33.57-.51 1.23-.51 1.93 0 1.21.62 2.27 1.56 2.9-.72-.02-1.39-.22-1.98-.55v.09c0 3.39 2.41 6.47 5.63 7.12-.6.16-1.23.24-1.88.24-.46 0-.91-.04-1.34-.13.89 2.79 3.48 4.83 6.55 4.89-2.41 1.89-5.44 3.02-8.76 3.02-.57 0-1.13-.03-1.68-.09C3.78 20.25 7.55 22 12 22c4.81 0 8.84-3.37 9.76-7.81.25-.66.39-1.37.39-2.1 0-.17-.01-.34-.02-.51.42-.31.79-.69 1.08-1.13z"/>
+                        </svg>
+                        <span>Twitter</span>
+                    </button>
+
+                    <!-- Tombol Salin Link -->
+                    <button id="copyLinkModal" class="btn-copy">
+                        <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        <span>Salin Link</span>
+                    </button>
+                    <div id="copyMessage" class="text-sm text-center mt-2 hidden"></div>
+                </div>
+                <!-- END NEW: Share Buttons Section -->
+
+                <form id="orderForm" class="space-y-4 border-t pt-4 mt-4">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Form Pemesanan:</h3>
                     <div>
                         <label for="customerName" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
                         <input type="text" id="customerName" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan nama Anda" required>
@@ -106,7 +153,7 @@
 
                         <div id="bankTransferDetails" class="payment-details mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 hidden">
                             <h4 class="font-semibold text-gray-800 mb-2">Pembayaran via Transfer Bank</h4>
-                            <p class="text-sm text-gray-700">Bank: <span class="font-medium">Bank Syariah Indonesia</span></p>
+                            <p class="text-sm text-gray-700">Bank: <span class="font-medium">Bank ABC</span></p>
                             <p class="text-sm text-gray-700">Nomor Rekening: <span class="font-medium">7201 019 065</span></p>
                             <p class="text-sm text-gray-700">Atas Nama: <span class="font-medium">Rahmadani</span></p>
                             <p class="text-xs text-gray-500 mt-2">Mohon transfer sesuai total harga produk dan sertakan bukti transfer saat konfirmasi.</p>
@@ -117,6 +164,8 @@
                             <p class="text-sm text-gray-700">Pilih E-wallet:</p>
                             <ul class="list-disc list-inside ml-4 text-sm text-gray-700">
                                 <li>DANA (Nomor HP: 0823-3916-2744)</li>
+                                <li>GoPay (Nomor HP: 0813-XXXX-XXXX)</li>
+                                <li>OVO (Nomor HP: 0814-XXXX-XXXX)</li>
                             </ul>
                             <p class="text-xs text-gray-500 mt-2">Mohon transfer sesuai total harga produk ke nomor E-wallet yang sesuai dan sertakan bukti transfer/screenshot saat konfirmasi.</p>
                         </div>
@@ -135,7 +184,10 @@
         </div>
     </div>
 
- <script src="produk.js"></script>
+    <!-- Tautan ke file JavaScript terpisah -->
+    <!-- Penting: Gunakan type="module" untuk mendukung import/export -->
+    <script type="module" src="produk.js"></script>
+    <script type="module" src="fungsi.js"></script>
 </body>
 </html>
 
