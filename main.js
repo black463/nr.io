@@ -50,8 +50,7 @@ const renderProducts = (filteredProducts) => {
     productGrid.innerHTML = ''; // Clear existing products
     filteredProducts.forEach(product => {
         const productCard = document.createElement('div');
-        // Tambahkan ID unik untuk setiap kartu produk
-        productCard.id = `product-${product.id}`; // NEW: Add ID to the card for hash linking
+        // Make the entire card clickable
         productCard.className = 'bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer';
         productCard.dataset.productId = product.id; // Store product ID on the card
 
@@ -104,9 +103,8 @@ const openOrderModal = (productId) => {
         document.querySelector('input[name="paymentMethod"][value="qris"]').checked = true;
         showPaymentDetails('qris');
 
-        // NEW: Set up share button actions for the selected product with hash link
-        // Link akan menuju halaman utama dengan hash #product-ID
-        const shareProductUrl = `${window.location.origin}${window.location.pathname}#product-${selectedProduct.id}`;
+        // Set up share button actions for the selected product
+        const shareProductUrl = window.location.href; // Ini akan mengarah ke URL halaman yang sedang dibuka
         const shareProductTitle = selectedProduct.name;
         const shareProductDescription = `Cek produk keren ini: ${selectedProduct.name} dengan harga ${formatRupiah(selectedProduct.price)} di Toko Source Code Nr Real!`;
 
@@ -310,28 +308,8 @@ categoryButtons.forEach(button => {
     });
 });
 
-// Fungsi baru untuk menggulir ke produk berdasarkan hash di URL
-const scrollToProductFromHash = () => {
-    if (window.location.hash) {
-        const productId = window.location.hash.substring(1); // Hapus '#'
-        const targetElement = document.getElementById(productId);
-        if (targetElement) {
-            // Gunakan setTimeout untuk memastikan elemen sudah dirender
-            // dan untuk memberikan sedikit jeda agar animasi scroll lebih halus
-            setTimeout(() => {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100); // Sesuaikan delay jika diperlukan
-        }
-    }
-};
-
 // Initial render of all products
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts(products);
-    // Panggil fungsi scroll setelah produk dirender
-    scrollToProductFromHash();
 });
-
-// Tambahkan event listener untuk perubahan hash (misalnya, jika pengguna mengubah hash secara manual)
-window.addEventListener('hashchange', scrollToProductFromHash);
 
