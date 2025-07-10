@@ -1,6 +1,5 @@
 // products.js
-// File ini hanya berisi data produk yang akan diekspor.
-
+// File ini hanya berisi data produk yang akan diekspor
 export const products = [
     { id: 1, name: "Sc Full Buka Olsop", price: 300000, category: "code", image: "https://cdn.lynkid.my.id/products/08-06-2025/1749317735349_5592500.webp" },
     { id: 2, name: "Home Buka ppob", price: 20000, category: "code", image: "https://cdn.lynkid.my.id/products/08-06-2025/1749317775973_3086705.webp" },
