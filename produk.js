@@ -39,6 +39,14 @@ const products = [
         const bankTransferDetails = document.getElementById('bankTransferDetails');
         const eWalletDetails = document.getElementById('eWalletDetails');
 
+        // NEW: Share button elements in modal
+        const shareViaWebShareModal = document.getElementById('shareViaWebShareModal');
+        const shareWhatsAppModal = document.getElementById('shareWhatsAppModal');
+        const shareFacebookModal = document.getElementById('shareFacebookModal');
+        const shareTwitterModal = document.getElementById('shareTwitterModal');
+        const copyLinkModal = document.getElementById('copyLinkModal');
+        const copyMessage = document.getElementById('copyMessage'); // For copy success/failure message
+
         // Function to format Rupiah
         const formatRupiah = (amount) => {
             return new Intl.NumberFormat('id-ID', {
@@ -67,7 +75,6 @@ const products = [
                             <h3 class="text-base font-semibold text-gray-800 mb-1">${product.name}</h3>
                             <p class="text-sm font-bold text-blue-600 mb-3">${formatRupiah(product.price)}</p>
                         </div>
-                        <!-- Tombol "Beli" telah dihapus sesuai permintaan -->
                     </div>
                 `;
                 productGrid.appendChild(productCard);
@@ -75,7 +82,8 @@ const products = [
 
             // Add event listeners for the entire product card
             // Menggunakan event delegation pada productGrid untuk efisiensi
-            productGrid.removeEventListener('click', handleProductCardClick); // Hapus listener lama jika ada
+            // Hapus listener lama jika ada untuk menghindari duplikasi
+            productGrid.removeEventListener('click', handleProductCardClick);
             productGrid.addEventListener('click', handleProductCardClick);
         };
 
@@ -105,8 +113,86 @@ const products = [
                 // Ensure QRIS is selected by default and its details are shown
                 document.querySelector('input[name="paymentMethod"][value="qris"]').checked = true;
                 showPaymentDetails('qris');
+
+                // NEW: Set up share button actions for the selected product
+                // Mengubah shareProductUrl agar mengarah ke halaman saat ini
+                const shareProductUrl = window.location.href; // Ini akan mengarah ke URL halaman yang sedang dibuka
+                const shareProductTitle = selectedProduct.name;
+                const shareProductDescription = `Cek produk keren ini: ${selectedProduct.name} dengan harga ${formatRupiah(selectedProduct.price)} di Toko Source Code Nr Real!`;
+
+                // Web Share API
+                shareViaWebShareModal.onclick = () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: shareProductTitle,
+                            text: shareProductDescription,
+                            url: shareProductUrl
+                        })
+                        .then(() => console.log('Produk berhasil dibagikan melalui Web Share API.'))
+                        .catch((error) => console.error('Gagal berbagi via Web Share API:', error));
+                    } else {
+                        displayCopyMessage('Fitur berbagi aplikasi tidak didukung di browser ini.', 'text-red-500');
+                        console.log('Web Share API tidak didukung di browser ini.');
+                    }
+                };
+
+                // WhatsApp Share
+                shareWhatsAppModal.onclick = () => {
+                    const message = encodeURIComponent(`${shareProductDescription}\n\nLink: ${shareProductUrl}`);
+                    const whatsappLink = `https://api.whatsapp.com/send?text=${message}`;
+                    window.open(whatsappLink, '_blank');
+                };
+
+                // Facebook Share
+                shareFacebookModal.onclick = () => {
+                    const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareProductUrl)}`;
+                    window.open(facebookLink, '_blank');
+                };
+
+                // Twitter Share
+                shareTwitterModal.onclick = () => {
+                    const text = encodeURIComponent(shareProductDescription);
+                    const twitterLink = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareProductUrl)}`;
+                    window.open(twitterLink, '_blank');
+                };
+
+                // Copy Link
+                copyLinkModal.onclick = () => {
+                    navigator.clipboard.writeText(shareProductUrl).then(function() {
+                        displayCopyMessage('Link produk berhasil disalin!', 'text-green-600');
+                        console.log('Link produk berhasil disalin.');
+                    }).catch(function(err) {
+                        console.error('Gagal menyalin link:', err);
+                        displayCopyMessage('Gagal menyalin link. Silakan salin manual.', 'text-red-500');
+                        // Fallback for older browsers or failed copy
+                        const tempInput = document.createElement('textarea');
+                        tempInput.value = shareProductUrl;
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        try {
+                            document.execCommand('copy');
+                            displayCopyMessage('Link produk berhasil disalin! (Metode fallback)', 'text-green-600');
+                            console.log('Link produk berhasil disalin (fallback).');
+                        } catch (err) {
+                            console.error('Gagal menyalin link dengan execCommand:', err);
+                        }
+                        document.body.removeChild(tempInput);
+                    });
+                };
             }
         };
+
+        // Function to display temporary message for copy action
+        const displayCopyMessage = (message, colorClass) => {
+            copyMessage.textContent = message;
+            copyMessage.className = `text-sm text-center mt-2 ${colorClass}`; // Apply color
+            copyMessage.classList.remove('hidden');
+            setTimeout(() => {
+                copyMessage.classList.add('hidden');
+                copyMessage.textContent = '';
+            }, 3000); // Hide after 3 seconds
+        };
+
 
         // Function to show/hide payment details based on selection
         const showPaymentDetails = (method) => {
@@ -138,6 +224,7 @@ const products = [
                 orderModal.classList.add('hidden');
                 selectedProduct = null; // Clear selected product
                 orderForm.reset(); // Clear form fields
+                copyMessage.classList.add('hidden'); // Hide copy message on close
             }, 300);
         });
 
@@ -186,6 +273,7 @@ const products = [
                 orderModal.classList.add('hidden');
                 selectedProduct = null;
                 orderForm.reset();
+                copyMessage.classList.add('hidden'); // Hide copy message on close
             }, 300);
         });
 
