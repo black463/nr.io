@@ -19,5 +19,4 @@ export const products = [
     { id: 16, name: "Ebook Strategi Digital Marketing Auto Cuan", price: 30000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/12-06-2025/1749721655769_7807617.webp" },
     { id: 17, name: "Ebook Resep Jamu Ayam Sehat Full Stamina", price: 40000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/15-06-2025/1749932623223_5879323.webp" },
 ];
-];
 
