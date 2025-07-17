@@ -15,6 +15,6 @@ export const products = [
     { id: 12, name: "Source code Topup E-wallet", price: 30000, category: "code", image: "https://cdn.lynkid.my.id/products/30-06-2025/1751224687623_8460110.webp" },
     { id: 13, name: "Source code Hide Produk", price: 15000, category: "code", image: "https://cdn.lynkid.my.id/products/01-07-2025/1751310780790_3370835.webp" },
     { id: 14, name: "Source code Topup Game Ml", price: 30000, category: "code", image: "https://cdn.lynkid.my.id/products/01-07-2025/1751312216269_7446272.webp" },
-    { id: 15, name: "Landing page promosi produk", price: 30000, category: "page", image: "https://cdn.lynkid.my.id/products/17-07-2025/1752735917694_7753228.webp" },
+    { id: 15, name: "Landing Page promosi produk", price: 30000, category: "Page", image: "https://cdn.lynkid.my.id/products/17-07-2025/1752735917694_7753228.webp" },
 ];
 
