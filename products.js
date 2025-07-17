@@ -16,5 +16,8 @@ export const products = [
     { id: 13, name: "Source code Hide Produk", price: 15000, category: "code", image: "https://cdn.lynkid.my.id/products/01-07-2025/1751310780790_3370835.webp" },
     { id: 14, name: "Source code Topup Game Ml", price: 30000, category: "code", image: "https://cdn.lynkid.my.id/products/01-07-2025/1751312216269_7446272.webp" },
     { id: 15, name: "Landing Page promosi produk", price: 50000, category: "Page", image: "https://cdn.lynkid.my.id/products/17-07-2025/1752735917694_7753228.webp" },
+    { id: 16, name: "Ebook Strategi Digital Marketing Auto Cuan", price: 30000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/12-06-2025/1749721655769_7807617.webp" },
+    { id: 17, name: "Ebook Resep Jamu Ayam Sehat Full Stamina", price: 40000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/15-06-2025/1749932623223_5879323.webp" },
+];
 ];
 
