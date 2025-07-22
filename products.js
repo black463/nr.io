@@ -2,7 +2,7 @@
 // File ini hanya berisi data produk yang akan diekspor
 export const products = [
     { id: 1, name: "Sc Full Buka Olsop", price: 300000, category: "code", image: "https://cdn.lynkid.my.id/products/08-06-2025/1749317735349_5592500.webp" },
-    { id: 2, name: "Home Buka ppob", price: 20000, category: "code", image: "https://cdn.lynkid.my.id/products/08-06-2025/1749317775973_3086705.webp" },
+    { id: 2, name: "Home Buka ppob", price: 50000, category: "code", image: "https://cdn.lynkid.my.id/products/08-06-2025/1749317775973_3086705.webp" },
     { id: 3, name: "Katagori List", price: 30000, category: "code", image: "https://cdn.lynkid.my.id/products/03-06-2025/1748958192557_6231429.webp" },
     { id: 4, name: "Toko Shop Modern", price: 50000, category: "code", image: "https://cdn.lynkid.my.id/products/06-06-2025/1749198426560_3810690.webp" },
     { id: 5, name: "listrik code Token", price: 30000, category: "code", image: "https://cdn.lynkid.my.id/products/16-06-2025/1750079247826_9954326.webp" },
