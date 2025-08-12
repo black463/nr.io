@@ -18,5 +18,8 @@ export const products = [
     { id: 15, name: "Landing Page promosi produk", price: 40000, category: "Page", image: "https://cdn.lynkid.my.id/products/17-07-2025/1752735917694_7753228.webp" },
     { id: 16, name: "Ebook Strategi Digital Marketing Auto Cuan", price: 30000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/12-06-2025/1749721655769_7807617.webp" },
     { id: 17, name: "Ebook Resep Jamu Ayam Sehat Full Stamina", price: 40000, category: "Ebook", image: "https://cdn.lynkid.my.id/products/15-06-2025/1749932623223_5879323.webp" },
+    { id: 18, name: "Home Ppob V.11", price: 40000, category: "Home", image: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250812_1829185674339554634226831.jpg" },
+    { id: 19, name: "Home ppob v.10", price: 40000, category: "Home", image: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250812_1827405588149243944467462.jpg" },
+    { id: 20, name: "Halaman Download Mirip Play Store", price: 40000, category: "code", image: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250812_183110786244174526303104.jpg" },
 ];
 
