@@ -408,4 +408,37 @@
             function attachBuyNowListeners() {
                 const buyButtons = document.querySelectorAll('.buy-now-btn');
                 buyButtons.forEach(button => {
-            
+                    button.addEventListener('click', function() {
+                        const productTitle = this.getAttribute('data-title');
+                        const productPrice = parseFloat(this.getAttribute('data-price'));
+
+                        paymentProductTitle.textContent = productTitle;
+                        paymentAmountSpan.textContent = formatRupiah(productPrice);
+
+                        const message = `Halo, saya ingin membeli produk "${productTitle}" dengan total pembayaran ${formatRupiah(productPrice)}. Saya sudah melakukan pembayaran dan mohon dicek.`;
+                        whatsappConfirmBtn.href = `https://wa.me/6282339162744?text=${encodeURIComponent(message)}`;
+                        
+                        paymentModal.style.display = 'flex';
+                    });
+                });
+            }
+
+            closePaymentModal.addEventListener('click', function() {
+                paymentModal.style.display = 'none';
+            });
+
+            paymentModal.addEventListener('click', function(e) {
+                if (e.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+            });
+
+            // Initial setup
+            setupCategoryButtons();
+            filterAndSearch();
+            searchInput.addEventListener('input', filterAndSearch);
+        });
+    </script>
+</body>
+</html>
+
