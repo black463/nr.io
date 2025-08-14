@@ -193,6 +193,60 @@
                     category: "Poin",
                     sold: 10
                 },
+                {
+                    id: 8,
+                    title: "Source Code Game v1",
+                    price: 50000,
+                    originalPrice: 100000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-25-09-435_com2244648690984774390.jpg",
+                    category: "Game",
+                    sold: 10
+                },
+                {
+                    id: 9,
+                    title: "Source Code Game V2",
+                    price: 50000,
+                    originalPrice: 110000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-31-58-478_com8752016261663005956.jpg",
+                    category: "Game",
+                    sold: 10
+                },
+               {
+                    id: 10,
+                    title: "Source Code Katagori Game V1",
+                    price: 40000,
+                    originalPrice: 110000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-23-148_com8569054821464774462.jpg",
+                    category: "Game",
+                    sold: 10
+                },
+                {
+                    id: 11,
+                    title: "Source Code profil Aplikasi Ppob",
+                    price: 40000,
+                    originalPrice: 110000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-39-383_com5183950021783454249.jpg",
+                    category: "Profil",
+                    sold: 10
+                },
+                 {
+                    id: 12,
+                    title: "Source Code Halaman Download Aplikasi Ppob v2",
+                    price: 50000,
+                    originalPrice: 110000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-37-399_com3957030634754294754.jpg",
+                    category: "Website",
+                    sold: 10
+                },
+                 {
+                    id: 13,
+                    title: "Source Code Landingpage Aplikasi Ppob v1",
+                    price: 50000,
+                    originalPrice: 110000,
+                    imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-08-004_com5870716492970744847.jpg",
+                    category: "Website",
+                    sold: 10
+                },
             ];
 
             const productGrid = document.getElementById('productGrid');
@@ -354,38 +408,4 @@
             function attachBuyNowListeners() {
                 const buyButtons = document.querySelectorAll('.buy-now-btn');
                 buyButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const productTitle = this.getAttribute('data-title');
-                        const productPrice = parseFloat(this.getAttribute('data-price'));
-
-                        paymentProductTitle.textContent = productTitle;
-                        paymentAmountSpan.textContent = formatRupiah(productPrice);
-
-                        const message = `Halo, saya ingin membeli produk "${productTitle}" dengan total pembayaran ${formatRupiah(productPrice)}. Saya sudah melakukan pembayaran dan mohon dicek.`;
-                        whatsappConfirmBtn.href = `https://wa.me/6282339162744?text=${encodeURIComponent(message)}`;
-                        
-                        paymentModal.style.display = 'flex';
-                    });
-                });
-            }
-
-            closePaymentModal.addEventListener('click', function() {
-                paymentModal.style.display = 'none';
-            });
-
-            paymentModal.addEventListener('click', function(e) {
-                if (e.target === paymentModal) {
-                    paymentModal.style.display = 'none';
-                }
-            });
-
-            // Initial setup
-            setupCategoryButtons();
-            filterAndSearch();
-            searchInput.addEventListener('input', filterAndSearch);
-        });
-    </script>
-</body>
-</html>
-
-                        
+            
