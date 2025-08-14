@@ -48,6 +48,20 @@
             background-color: #2563eb;
             color: white;
         }
+        .product-card-image-container {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .product-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Menggunakan 'contain' agar gambar terlihat penuh */
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -60,8 +74,7 @@
                 <span class="text-xl font-bold text-gray-800">Nr Real</span>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-blue-600 font-medium">Masuk</a>
-                <a href="#" class="text-white bg-blue-600 px-4 py-2 rounded-lg font-medium">Daftar</a>
+              
             </div>
         </div>
     </header>
@@ -115,70 +128,70 @@
     <!-- JavaScript for Dynamic Content and Functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Data produk statis
+            // Data produk statis, diperbarui untuk mencocokkan gambar
             const products = [
                 {
                     id: 1,
-                    title: "Source Code Home Aplikasi PPOB V2",
-                    description: "Aplikasi PPOB lengkap untuk kebutuhan harian.",
+                    title: "Home Dana V2",
                     price: 50000,
-                    originalPrice: 100000,
+                    originalPrice: 165000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-18-22-47-371_com9176048978929217371.jpg",
-                    category: "HOME"
+                    category: "HOME",
+                    sold: 1
                 },
                  {
                     id: 2,
-                    title: "Source Code Home Aplikasi PPOB V3",
-                    description: "Aplikasi PPOB lengkap untuk kebutuhan harian.",
-                    price: 50000,
-                    originalPrice: 100000,
+                    title: "Home V4",
+                    price: 40000,
+                    originalPrice: 130000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-18-21-54-089_com7966170589104030972.jpg",
-                    category: "HOME"
+                    category: "HOME",
+                    sold: 3
                 },
                 {
                     id: 3,
-                    title: "Source Code Home Aplikasi PPOB V4",
-                    description: "Home v4 home modren Dan Elegan",
-                    price: 50000,
-                    originalPrice: null,
+                    title: "home V5",
+                    price: 40000,
+                    originalPrice: 130000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/img_20250812_221949_430398595092534427199.jpg",
-                    category: "HOME"
+                    category: "HOME",
+                    sold: 1
                 },
                 {
                     id: 4,
                     title: "Source Code PULSA",
-                    description: "Bangun toko online Anda sendiri dengan cepat.",
                     price: 40000,
-                    originalPrice: null,
+                    originalPrice: 60000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-27-59-999_com1680443132889526906.jpg",
-                    category: "PULSA"
+                    category: "PULSA",
+                    sold: 2
                 },
                 {
                     id: 5,
                     title: "Source Code Pln Listrik Responsif",
-                    description: "Sistem  modern untuk bisnis kamu.",
                     price: 40000,
-                    originalPrice: null,
+                    originalPrice: 55000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-31-29-721_com1259713636527713206.jpg",
-                    category: "Listrik"
+                    category: "Listrik",
+                    sold: 5
                 },
                 {
                     id: 6,
                     title: "Source Code Ewalet Bebas Nominal",
-                    description: "Sc ewalet Bebas nominal tampilan elegan.",
                     price: 40000,
                     originalPrice: 110000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-34-52-322_com1768366660345269589.jpg",
-                    category: "Ewalet"
+                    category: "Ewalet",
+                    sold: 8
                 },
                  {
-                    id: 6,
+                    id: 7,
                     title: "Source Code poin Aplikasi Ppob",
-                    description: "sc poin bisa langsung cek poin dan convert poin.",
-                    price: 90000,
+                    price: 20000,
                     originalPrice: 110000,
                     imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-40-15-496_com2345188013255050833.jpg",
-                    category: "Poin"
+                    category: "Poin",
+                    sold: 10
                 },
             ];
 
@@ -205,18 +218,34 @@
                 }
                 filteredProducts.forEach(product => {
                     const priceFormatted = formatRupiah(product.price);
+                    const originalPriceFormatted = product.originalPrice ? formatRupiah(product.originalPrice) : '';
+                    const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+
                     const productCard = `
-                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
-                            <img src="${product.imageUrl}" alt="${product.title}" class="w-full h-48 object-cover cursor-pointer product-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/333333?text=Gambar+tidak+tersedia';">
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-800 mb-2">${product.title}</h3>
-                                <p class="text-gray-500 text-sm mb-4">${product.description}</p>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-2xl font-bold text-blue-600">${priceFormatted}</span>
-                                    <button class="buy-now-btn bg-blue-600 text-white font-medium px-6 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300" data-title="${product.title}" data-price="${product.price}">
-                                        Beli Sekarang
-                                    </button>
+                        <div class="bg-white rounded-3xl shadow-lg p-4 flex space-x-4 transition-transform transform hover:scale-105 duration-300">
+                            <!-- Left: Product Image -->
+                            <div class="product-card-image-container">
+                                <img src="${product.imageUrl}" alt="${product.title}" class="product-card-image product-image" onerror="this.onerror=null;this.src='https://placehold.co/120x120/CCCCCC/333333?text=Gambar+tidak+tersedia';">
+                            </div>
+
+                            <!-- Right: Product Details -->
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-md font-bold text-gray-800 mb-1">${product.title}</h3>
+                                    <div class="flex items-baseline space-x-2 mb-2">
+                                        <span class="text-xl font-bold text-green-600">${priceFormatted}</span>
+                                        ${hasDiscount ? `<span class="text-sm text-gray-400 line-through">${originalPriceFormatted}</span>` : ''}
+                                    </div>
+                                    <div class="flex items-center text-gray-500 text-sm mb-4">
+                                        <span class="text-red-500 mr-1">🔥</span> ${product.sold} Terjual
+                                    </div>
                                 </div>
+                                <button class="buy-now-btn bg-blue-600 text-white font-medium px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-1" data-title="${product.title}" data-price="${product.price}">
+                                    <span>Beli Sekarang</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                     `;
@@ -359,3 +388,4 @@
 </body>
 </html>
 
+                        
