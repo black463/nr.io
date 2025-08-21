@@ -62,6 +62,15 @@
             object-fit: contain; /* Menggunakan 'contain' agar gambar terlihat penuh */
             cursor: pointer;
         }
+
+        /* Custom CSS for the draggable WhatsApp button */
+        #whatsapp-float {
+            position: fixed;
+            z-index: 90;
+            touch-action: none;
+            cursor: grab;
+            transition: none; /* Nonaktifkan transisi CSS untuk pergerakan yang mulus */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -124,6 +133,14 @@
             <button id="closePaymentModal" class="w-full text-gray-500 font-semibold py-3 mt-4 rounded-full">Tutup</button>
         </div>
     </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://chat.whatsapp.com/K3AOa25PW3VCSvc6bUDOSt?mode=ac_t" target="_blank" id="whatsapp-float" class="bg-green-500 rounded-full w-14 h-14 flex items-center justify-center shadow-lg">
+        <!-- SVG for WhatsApp Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white">
+            <path d="M12.04 2.86c-5.46 0-9.88 4.42-9.88 9.88s4.42 9.88 9.88 9.88c.92 0 1.83-.15 2.69-.44l4.22 1.06-1.09-4.16c2.48-3.04 1.99-7.23-1.2-9.67-3.05-2.29-7.39-2.02-9.68 1.03-.43.57-.75 1.25-.94 1.97l.03.04c-.06-.21-.1-.44-.13-.67 0-4.13 3.36-7.49 7.49-7.49s7.49 3.36 7.49 7.49c0 4.13-3.36 7.49-7.49 7.49-.69 0-1.37-.1-2.02-.29l-.21-.06c-.46.33-.94.62-1.44.86l-.08.04c-1.39.69-3.06 1.05-4.78 1.05-4.13 0-7.49-3.36-7.49-7.49s3.36-7.49 7.49-7.49c1.94 0 3.75.74 5.12 2.04l.15.17c.56.63.92 1.4.92 2.23 0 1.83-1.47 3.3-3.3 3.3s-3.3-1.47-3.3-3.3c0-.9.36-1.74 1.02-2.36l.24-.22c.2-.18.2-.44 0-.64-.2-.18-.5-.18-.7 0l-.24.22c-.9.84-1.47 2-1.47 3.28 0 2.5 2.05 4.54 4.54 4.54s4.54-2.05 4.54-4.54c0-2.5-2.05-4.54-4.54-4.54z"/>
+        </svg>
+    </a>
 
     <!-- JavaScript for Dynamic Content and Functionality -->
     <script>
@@ -451,6 +468,90 @@
                 }
             });
 
+            // --- Fungsionalitas Tombol WhatsApp yang Dapat Digeser ---
+            const whatsappButton = document.getElementById('whatsapp-float');
+            let isDragging = false;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            function dragStart(e) {
+                // Tentukan apakah sentuhan atau klik
+                let clientX = e.clientX;
+                let clientY = e.clientY;
+                if (e.type === "touchstart") {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+                
+                // Hitung offset dari posisi sentuhan/klik ke sudut kiri atas tombol
+                xOffset = clientX - whatsappButton.getBoundingClientRect().left;
+                yOffset = clientY - whatsappButton.getBoundingClientRect().top;
+                
+                initialX = clientX;
+                initialY = clientY;
+                isDragging = false;
+                
+                whatsappButton.style.cursor = 'grabbing';
+                // Tambahkan event listener untuk mengakhiri drag
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
+            }
+
+            function drag(e) {
+                if (!initialX && !initialY) return;
+
+                // Tentukan apakah sentuhan atau klik
+                let clientX = e.clientX;
+                let clientY = e.clientY;
+                if (e.type === "touchmove") {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+
+                // Cek apakah pergerakan cukup besar untuk dianggap drag
+                const dragDistance = Math.sqrt(Math.pow(clientX - initialX, 2) + Math.pow(clientY - initialY, 2));
+                if (dragDistance > 5) { // Threshold 5px untuk membedakan klik dan drag
+                    isDragging = true;
+                }
+
+                e.preventDefault();
+
+                const newX = clientX - xOffset;
+                const newY = clientY - yOffset;
+
+                whatsappButton.style.left = `${newX}px`;
+                whatsappButton.style.top = `${newY}px`;
+                whatsappButton.style.right = 'auto'; // Matikan right dan bottom
+                whatsappButton.style.bottom = 'auto';
+            }
+
+            function dragEnd() {
+                initialX = null;
+                initialY = null;
+                whatsappButton.style.cursor = 'grab';
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchend', dragEnd);
+            }
+
+            whatsappButton.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            whatsappButton.addEventListener('touchstart', dragStart);
+            document.addEventListener('touchmove', drag);
+
+            // Mencegah tindakan default (mengikuti tautan) jika terjadi drag
+            whatsappButton.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                }
+                isDragging = false; // Reset status drag
+            });
+
+            // Set posisi awal balon WhatsApp
+            whatsappButton.style.right = '2rem';
+            whatsappButton.style.bottom = '2rem';
+            
             // Initial setup
             setupCategoryButtons();
             filterAndSearch();
