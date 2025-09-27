@@ -2,454 +2,445 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Source Code - Nr Real</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f3f4f6;
-    }
-    
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 1rem;
-    }
-    
-    .modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-    
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    
-    .category-button {
-      transition: all 0.2s ease-in-out;
-      white-space: nowrap;
-    }
-    
-    .category-button.active {
-      background-color: #2563eb;
-      color: white;
-    }
-    
-    .product-card-image-container {
-      width: 120px;
-      height: 120px;
-      flex-shrink: 0;
-      border-radius: 1rem;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .product-card-image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      cursor: pointer;
-    }
-    
-    /* Custom CSS for the draggable WhatsApp button */
-    #whatsapp-float {
-      position: fixed;
-      z-index: 90;
-      touch-action: none;
-      cursor: grab;
-      transition: none;
-    }
-    
-    /* CSS for the vertical video modal (9:16 aspect ratio for Shorts) */
-    .video-modal-content {
-      position: relative;
-      padding-top: 177.77%;
-      /* 9:16 Aspect Ratio (16 / 9 * 100) */
-      width: 90%;
-      max-width: 400px;
-      /* Reduced max-width for a more mobile-like feel */
-    }
-    
-    .video-modal-content iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 1rem;
-    }
-    
-    /* Updated CSS for a more professional phone frame */
-    .phone-frame {
-      position: relative;
-      width: 120px;
-      height: 240px;
-      background-color: #000;
-      border-radius: 0.75rem;
-      /* Less rounded corners */
-      border: 3px solid #1a1a1a;
-      /* Thinner border */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      /* Softer shadow */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-    
-    .phone-frame-screen {
-      width: 94%;
-      /* Thinner bezel */
-      height: 94%;
-      border-radius: 0.5rem;
-      overflow: hidden;
-    }
-    
-    .phone-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: pointer;
-    }
-    
-    .product-card-image-container {
-      width: 120px;
-      height: auto;
-      flex-shrink: 0;
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
-    
-    .product-card-image-container img {
-      object-fit: contain;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Code - Nr Real</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        /* Custom style for the Mobile Category Modal to align top on small screens */
+        #mobile-category-modal {
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: flex-start; /* Align content to the top */
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 110; /* Ensure close button is above modal content */
+        }
+
+        .category-button {
+            transition: all 0.2s ease-in-out;
+            white-space: nowrap;
+        }
+
+        .category-button.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .product-card-image-container {
+            width: 120px;
+            height: auto;
+            flex-shrink: 0;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-card-image-container img {
+            object-fit: contain;
+        }
+
+        .phone-frame {
+            position: relative;
+            width: 120px;
+            height: 240px;
+            background-color: #000;
+            border-radius: 0.75rem;
+            border: 3px solid #1a1a1a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .phone-frame-screen {
+            width: 94%;
+            height: 94%;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .phone-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Video Modal Styles */
+        .video-modal-content {
+            position: relative;
+            padding-top: 177.77%;
+            /* 9:16 Aspect Ratio (16 / 9 * 100) */
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .video-modal-content iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+
+        /* WhatsApp Floating Button - Hanya untuk z-index dan transisi */
+        #whatsapp-float {
+            z-index: 90;
+            transition: transform 0.3s ease-in-out; 
+        }
+    </style>
 </head>
 
 <body class="antialiased">
-  
-  <!-- Header Section -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto p-4 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/07/20250730_2113001677845936373451688.png" alt="Nr Real Logo" class="h-8 w-8">
-        <span class="text-xl font-bold text-gray-800">Nr Real</span>
-      </div>
-      <div class="flex items-center space-x-4">
-        
-      </div>
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/07/20250730_2113001677845936373451688.png" alt="Nr Real Logo" class="h-8 w-8">
+                <span class="text-xl font-bold text-gray-800">Nr Real</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Mobile Menu Button (Hamburger) - Visible on small screens only -->
+                <button id="mobileMenuButton" class="md:hidden p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 p-4">
+        <!-- Search and Filter Section -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 space-y-4 md:space-y-0 md:space-x-4">
+            <!-- Search Input -->
+            <div class="flex-grow flex items-center space-x-2 bg-white rounded-lg shadow-sm p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="searchInput" placeholder="Cari produk..." class="w-full focus:outline-none">
+            </div>
+
+            <!-- DESKTOP Categories: Hidden on mobile (default) and visible on md and up -->
+            <div id="desktopCategoryButtons" class="hidden md:flex space-x-2 overflow-x-auto pb-2 flex-shrink-0">
+                <!-- Category buttons will be dynamically added here by JS -->
+            </div>
+        </div>
+
+        <!-- Product Grid Section -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Product cards will be dynamically added here -->
+        </div>
+    </main>
+
+    <!-- MODALS -->
+
+    <!-- Modal for Mobile Category Menu (New) -->
+    <div id="mobile-category-modal" class="modal justify-start md:hidden z-40">
+        <span class="close-btn" id="closeMobileCategoryModal">&times;</span>
+        <div class="bg-white rounded-b-xl shadow-2xl w-full max-h-[80vh] overflow-y-auto mt-0">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-gray-800">Pilih Kategori</h2>
+            </div>
+            <!-- Mobile category buttons container (will be a grid) -->
+            <div id="mobileCategoryButtons" class="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <!-- Mobile category buttons populated by JS -->
+            </div>
+        </div>
     </div>
-  </header>
-  
-  <!-- Main Content -->
-  <main class="container mx-auto mt-8 p-4">
-    <!-- Search and Filter Section -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 space-y-4 md:space-y-0 md:space-x-4">
-      <div class="flex-grow flex items-center space-x-2 bg-white rounded-lg shadow-sm p-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+
+    <!-- Modal for Fullscreen Image -->
+    <div id="image-modal" class="modal">
+        <span class="close-btn" id="closeImageModal">&times;</span>
+        <img class="modal-content rounded-lg" id="full-image">
+    </div>
+
+    <!-- Modal for YouTube Video -->
+    <div id="video-modal" class="modal">
+        <span class="close-btn" id="closeVideoModal">&times;</span>
+        <div class="video-modal-content">
+            <iframe id="youtube-video-player" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Modal for Payment -->
+    <div id="payment-modal" class="modal">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-sm">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Detail Pembayaran</h2>
+            <p class="text-center text-gray-600 mb-2">Produk: <span id="payment-product-title" class="font-semibold"></span></p>
+            <p class="text-3xl font-bold text-center text-blue-600 mb-6" id="payment-amount"></p>
+
+            <p class="text-center text-gray-600 mb-4">Scan QR code di bawah ini untuk melakukan pembayaran.</p>
+            <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/04/qr_id1023262894992_10.04.25_174422989_1744229894308.jpeg" alt="QRIS Code" class="w-full rounded-lg mb-6">
+            <a id="whatsappConfirm" href="#" target="_blank" class="w-full flex items-center justify-center bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M12.03 1.09c-2.43 0-4.41 1.98-4.41 4.41c0 2.43 1.98 4.41 4.41 4.41c2.43 0 4.41-1.98 4.41-4.41c0-2.43-1.98-4.41-4.41-4.41zm0 7.84c-1.9 0-3.43-1.53-3.43-3.43c0-1.9 1.53-3.43 3.43-3.43c1.9 0 3.43 1.53 3.43 3.43c0 1.9-1.53 3.43-3.43 3.43zm-7.9 7.37l-4.13-1.29l1.19-4.11c-.57-1.12-.9-2.39-.9-3.75c0-4.13 3.36-7.49 7.49-7.49c4.13 0 7.49 3.36 7.49 7.49c0 3.86-2.92 7.02-6.68 7.43l-1.28 4.14z" />
+                </svg>
+                Konfirmasi Pembayaran
+            </a>
+            <button id="closePaymentModal" class="w-full text-gray-500 font-semibold py-3 mt-4 rounded-lg">Tutup</button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://chat.whatsapp.com/K3AOa25PW3VCSvc6bUDOSt?mode=ac_t" target="_blank" id="whatsapp-float" class="bg-green-500 rounded-full w-14 h-14 flex items-center justify-center shadow-lg fixed right-8 bottom-8 hover:scale-110">
+        <!-- SVG for WhatsApp Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white">
+            <path d="M12.04 2.86c-5.46 0-9.88 4.42-9.88 9.88s4.42 9.88 9.88 9.88c.92 0 1.83-.15 2.69-.44l4.22 1.06-1.09-4.16c2.48-3.04 1.99-7.23-1.2-9.67-3.05-2.29-7.39-2.02-9.68 1.03-.43.57-.75 1.25-.94 1.97l.03.04c-.06-.21-.1-.44-.13-.67 0-4.13 3.36-7.49 7.49-7.49s7.49 3.36 7.49 7.49c0 4.13-3.36 7.49-7.49 7.49-.69 0-1.37-.1-2.02-.29l-.21-.06c-.46.33-.94.62-1.44.86l-.08.04c-1.39.69-3.06 1.05-4.78 1.05-4.13 0-7.49-3.36-7.49-7.49s3.36-7.49 7.49-7.49c1.94 0 3.75.74 5.12 2.04l.15.17c.56.63.92 1.4.92 2.23 0 1.83-1.47 3.3-3.3 3.3s-3.3-1.47-3.3-3.3c0-.9.36-1.74 1.02-2.36l.24-.22c.2-.18.2-.44 0-.64-.2-.18-.5-.18-.7 0l-.24.22c-.9.84-1.47 2-1.47 3.28 0 2.5 2.05 4.54 4.54 4.54s4.54-2.05 4.54-4.54c0-2.5-2.05-4.54-4.54-4.54z" />
         </svg>
-        <input type="text" id="searchInput" placeholder="Cari produk..." class="w-full focus:outline-none">
-      </div>
-      <div id="categoryButtons" class="flex space-x-2 overflow-x-auto pb-2">
-        <!-- Category buttons will be dynamically added here -->
-      </div>
-    </div>
-    
-    <!-- Product Grid Section -->
-    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Product cards will be dynamically added here -->
-    </div>
-  </main>
-  
-  <!-- Modal for Fullscreen Image -->
-  <div id="image-modal" class="modal">
-    <span class="close-btn" id="closeImageModal">&times;</span>
-    <img class="modal-content rounded-lg" id="full-image">
-  </div>
-  
-  <!-- Modal for YouTube Video -->
-  <div id="video-modal" class="modal">
-    <span class="close-btn" id="closeVideoModal">&times;</span>
-    <div class="video-modal-content">
-      <iframe id="youtube-video-player" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  </div>
-  
-  <!-- Modal for Payment -->
-  <div id="payment-modal" class="modal">
-    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-sm">
-      <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Detail Pembayaran</h2>
-      <p class="text-center text-gray-600 mb-2">Produk: <span id="payment-product-title" class="font-semibold"></span></p>
-      <p class="text-3xl font-bold text-center text-blue-600 mb-6" id="payment-amount"></p>
-      
-      <p class="text-center text-gray-600 mb-4">Scan QR code di bawah ini untuk melakukan pembayaran.</p>
-      <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/04/qr_id1023262894992_10.04.25_174422989_1744229894308.jpeg" alt="QRIS Code" class="w-full rounded-lg mb-6">
-      <a id="whatsappConfirm" href="#" target="_blank" class="w-full flex items-center justify-center bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M12.03 1.09c-2.43 0-4.41 1.98-4.41 4.41c0 2.43 1.98 4.41 4.41 4.41c2.43 0 4.41-1.98 4.41-4.41c0-2.43-1.98-4.41-4.41-4.41zm0 7.84c-1.9 0-3.43-1.53-3.43-3.43c0-1.9 1.53-3.43 3.43-3.43c1.9 0 3.43 1.53 3.43 3.43c0 1.9-1.53 3.43-3.43 3.43zm-7.9 7.37l-4.13-1.29l1.19-4.11c-.57-1.12-.9-2.39-.9-3.75c0-4.13 3.36-7.49 7.49-7.49c4.13 0 7.49 3.36 7.49 7.49c0 3.86-2.92 7.02-6.68 7.43l-1.28 4.14z" />
-        </svg>
-        Konfirmasi Pembayaran
-      </a>
-      <button id="closePaymentModal" class="w-full text-gray-500 font-semibold py-3 mt-4 rounded-lg">Tutup</button>
-    </div>
-  </div>
-  
-  <!-- WhatsApp Floating Button -->
-  <a href="https://chat.whatsapp.com/K3AOa25PW3VCSvc6bUDOSt?mode=ac_t" target="_blank" id="whatsapp-float" class="bg-green-500 rounded-full w-14 h-14 flex items-center justify-center shadow-lg">
-    <!-- SVG for WhatsApp Icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white">
-      <path d="M12.04 2.86c-5.46 0-9.88 4.42-9.88 9.88s4.42 9.88 9.88 9.88c.92 0 1.83-.15 2.69-.44l4.22 1.06-1.09-4.16c2.48-3.04 1.99-7.23-1.2-9.67-3.05-2.29-7.39-2.02-9.68 1.03-.43.57-.75 1.25-.94 1.97l.03.04c-.06-.21-.1-.44-.13-.67 0-4.13 3.36-7.49 7.49-7.49s7.49 3.36 7.49 7.49c0 4.13-3.36 7.49-7.49 7.49-.69 0-1.37-.1-2.02-.29l-.21-.06c-.46.33-.94.62-1.44.86l-.08.04c-1.39.69-3.06 1.05-4.78 1.05-4.13 0-7.49-3.36-7.49-7.49s3.36-7.49 7.49-7.49c1.94 0 3.75.74 5.12 2.04l.15.17c.56.63.92 1.4.92 2.23 0 1.83-1.47 3.3-3.3 3.3s-3.3-1.47-3.3-3.3c0-.9.36-1.74 1.02-2.36l.24-.22c.2-.18.2-.44 0-.64-.2-.18-.5-.18-.7 0l-.24.22c-.9.84-1.47 2-1.47 3.28 0 2.5 2.05 4.54 4.54 4.54s4.54-2.05 4.54-4.54c0-2.5-2.05-4.54-4.54-4.54z" />
-    </svg>
-  </a>
-  
-  <!-- JavaScript for Dynamic Content and Functionality -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Data produk statis, diperbarui untuk mencocokkan gambar dan menambahkan video ID
-      const products = [
-      {
-        id: 1,
-        title: "Home Dana V2",
-        price: 50000,
-        originalPrice: 165000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-18-22-47-371_com9176048978929217371.jpg",
-        category: "HOME",
-        sold: 1,
-        demoVideoId: "uC1G4TjI1H4" // Ganti dengan ID video YouTube demo produk ini
-      },
-      {
-        id: 2,
-        title: "Home semi marketplce V4",
-        price: 80000,
-        originalPrice: 130000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-32-36-457_com1818580490209602701.jpg",
-        category: "HOME",
-        sold: 3,
-        demoVideoId: "7aNnV0NpJMQ"
-      },
-      {
-        id: 3,
-        title: "home V5",
-        price: 40000,
-        originalPrice: 130000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/img_20250812_221949_430398595092534427199.jpg",
-        category: "HOME",
-        sold: 1,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 4,
-        title: "Source Code PULSA",
-        price: 50000,
-        originalPrice: 60000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-27-59-999_com1680443132889526906.jpg",
-        category: "PULSA",
-        sold: 200,
-        demoVideoId: "SDCGosEzees"
-      },
-      {
-        id: 5,
-        title: "Source Code Pln Listrik Responsif",
-        price: 40000,
-        originalPrice: 55000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-31-29-721_com1259713636527713206.jpg",
-        category: "Listrik",
-        sold: 5,
-        demoVideoId: "BWCgG-n7zy8"
-      },
-      {
-        id: 6,
-        title: "Source Code Ewalet Bebas Nominal",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-34-52-322_com1768366660345269589.jpg",
-        category: "Ewalet",
-        sold: 8,
-        demoVideoId: "q4tShnUUauY"
-      },
-      {
-        id: 7,
-        title: "Source Code poin Aplikasi Ppob",
-        price: 20000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-40-15-496_com2345188013255050833.jpg",
-        category: "Poin",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 8,
-        title: "Source Code Game free fire v1",
-        price: 50000,
-        originalPrice: 100000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-25-09-435_com2244648690984774390.jpg",
-        category: "Game",
-        sold: 10,
-        demoVideoId: "B2A5N2shDc0"
-      },
-      {
-        id: 9,
-        title: "Source Code Game V2",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-31-58-478_com8752016261663005956.jpg",
-        category: "Game",
-        sold: 10,
-        demoVideoId: "NzvzUOFE_ys"
-      },
-      {
-        id: 10,
-        title: "Source Code Katagori Game V1",
-        price: 40000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-23-148_com8569054821464774462.jpg",
-        category: "Game",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 11,
-        title: "Source Code profil Aplikasi Ppob",
-        price: 40000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-39-383_com5183950021783454249.jpg",
-        category: "Profil",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 12,
-        title: "Source Code Halaman Download Aplikasi Ppob v2",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-37-399_com3957030634754294754.jpg",
-        category: "Website",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 13,
-        title: "Source Code Landingpage Aplikasi Ppob v1",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-08-004_com5870716492970744847.jpg",
-        category: "Website",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 14,
-        title: "Home Store Aplikasi Ppob v6",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-16-10-02-09-227_com2784379300595143950.jpg",
-        category: "HOME",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-        id: 15,
-        title: "Home V7",
-        price: 50000,
-        originalPrice: 110000,
-        imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-25-20-05-16-943_com1610384385839116528.jpg",
-        category: "HOME",
-        sold: 10,
-        demoVideoId: "uC1G4TjI1H4"
-      },
-      {
-  id: 16,
-  title: "LIST HARGA & MARUP",
-  price: 50000,
-  originalPrice: 110000,
-  imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-13-33-12-683_com7665129572502972591.jpg",
-  category: "TRANSAKSI",
-  sold: 10,
-  demoVideoId: "IDwrw8umkr8"
-},
-{
-  id: 17,
-  title: "REKAP DETAIL & MARUP",
-  price: 50000,
-  originalPrice: 110000,
-  imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-04-23-073_com4566951984638594839.jpg",
-  category: "TRANSAKSI",
-  sold: 10,
-  demoVideoId: "TGCBoToonYU"
-},
-{
-  id: 18,
-  title: "RIWAYAT TRANSAKSI",
-  price: 50000,
-  originalPrice: 110000,
-  imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-02-31-283_com3691325870145022252.jpg",
-  category: "TRANSAKSI",
-  sold: 10,
-  demoVideoId: "2G55ASl6NFE"
-},
-{
-  id: 19,
-  title: "RIWAYAT MUTASI SALDO AKTIVITAS",
-  price: 50000,
-  originalPrice: 110000,
-  imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-19-47-29-420_com9104280623179358489.jpg",
-  category: "TRANSAKSI",
-  sold: 10,
-  demoVideoId: "SMyGn3Wukrc"
-}
-      ];
-      
-      const productGrid = document.getElementById('productGrid');
-      const searchInput = document.getElementById('searchInput');
-      const categoryButtonsContainer = document.getElementById('categoryButtons');
-      let activeCategory = 'Semua';
-      
-      // Fungsi untuk memformat angka menjadi format mata uang Rupiah
-      function formatRupiah(number) {
-        return new Intl.NumberFormat('id-ID', {
-          style: 'currency',
-          currency: 'IDR',
-          minimumFractionDigits: 0
-        }).format(number);
-      }
-      
-      // Function to render products
-      function renderProducts(filteredProducts) {
-        productGrid.innerHTML = ''; // Clear existing products
-        if (filteredProducts.length === 0) {
-          productGrid.innerHTML = '<p class="text-center text-gray-500 col-span-full">Tidak ada produk yang ditemukan.</p>';
-          return;
-        }
-        filteredProducts.forEach(product => {
-          const priceFormatted = formatRupiah(product.price);
-          const originalPriceFormatted = product.originalPrice ? formatRupiah(product.originalPrice) : '';
-          const hasDiscount = product.originalPrice && product.originalPrice > product.price;
-          
-          const productCard = `
-                        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col space-y-4 transition-transform transform hover:scale-105 duration-300">
+    </a>
+
+    <!-- JavaScript for Dynamic Content and Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data produk statis
+            const products = [{
+                id: 1,
+                title: "Home Dana V2",
+                price: 50000,
+                originalPrice: 165000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-18-22-47-371_com9176048978929217371.jpg",
+                category: "HOME",
+                sold: 1,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 2,
+                title: "Home semi marketplce V4",
+                price: 80000,
+                originalPrice: 130000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-32-36-457_com1818580490209602701.jpg",
+                category: "HOME",
+                sold: 3,
+                demoVideoId: "7aNnV0NpJMQ"
+            }, {
+                id: 3,
+                title: "home V5",
+                price: 40000,
+                originalPrice: 130000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/img_20250812_221949_430398595092534427199.jpg",
+                category: "HOME",
+                sold: 1,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 4,
+                title: "Source Code PULSA",
+                price: 50000,
+                originalPrice: 60000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-27-59-999_com1680443132889526906.jpg",
+                category: "PULSA",
+                sold: 200,
+                demoVideoId: "SDCGosEzees"
+            }, {
+                id: 5,
+                title: "Source Code Pln Listrik Responsif",
+                price: 40000,
+                originalPrice: 55000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-31-29-721_com1259713636527713206.jpg",
+                category: "Listrik",
+                sold: 5,
+                demoVideoId: "BWCgG-n7zy8"
+            }, {
+                id: 6,
+                title: "Source Code Ewalet Bebas Nominal",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-34-52-322_com1768366660345269589.jpg",
+                category: "Ewalet",
+                sold: 8,
+                demoVideoId: "q4tShnUUauY"
+            }, {
+                id: 7,
+                title: "Source Code poin Aplikasi Ppob",
+                price: 20000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-12-22-40-15-496_com2345188013255050833.jpg",
+                category: "Poin",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 8,
+                title: "Source Code Game free fire v1",
+                price: 50000,
+                originalPrice: 100000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-25-09-435_com2244648690984774390.jpg",
+                category: "Game",
+                sold: 10,
+                demoVideoId: "B2A5N2shDc0"
+            }, {
+                id: 9,
+                title: "Source Code Game V2",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-31-58-478_com8752016261663005956.jpg",
+                category: "Game",
+                sold: 10,
+                demoVideoId: "NzvzUOFE_ys"
+            }, {
+                id: 10,
+                title: "Source Code Katagori Game V1",
+                price: 40000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-23-148_com8569054821464774462.jpg",
+                category: "Game",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 11,
+                title: "Source Code profil Aplikasi Ppob",
+                price: 40000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-32-39-383_com5183950021783454249.jpg",
+                category: "Profil",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 12,
+                title: "Source Code Halaman Download Aplikasi Ppob v2",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-37-399_com3957030634754294754.jpg",
+                category: "Website",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 13,
+                title: "Source Code Landingpage Aplikasi Ppob v1",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-14-13-34-08-004_com5870716492970744847.jpg",
+                category: "Website",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 14,
+                title: "Home Store Aplikasi Ppob v6",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/screenshot_2025-08-16-10-02-09-227_com2784379300595143950.jpg",
+                category: "HOME",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 15,
+                title: "Home V7",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-25-20-05-16-943_com1610384385839116528.jpg",
+                category: "HOME",
+                sold: 10,
+                demoVideoId: "uC1G4TjI1H4"
+            }, {
+                id: 16,
+                title: "LIST HARGA & MARUP",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-13-33-12-683_com7665129572502972591.jpg",
+                category: "TRANSAKSI",
+                sold: 10,
+                demoVideoId: "IDwrw8umkr8"
+            }, {
+                id: 17,
+                title: "REKAP DETAIL & MARUP",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-04-23-073_com4566951984638594839.jpg",
+                category: "TRANSAKSI",
+                sold: 10,
+                demoVideoId: "TGCBoToonYU"
+            }, {
+                id: 18,
+                title: "RIWAYAT TRANSAKSI",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-20-02-31-283_com3691325870145022252.jpg",
+                category: "TRANSAKSI",
+                sold: 10,
+                demoVideoId: "2G55ASl6NFE"
+            }, {
+                id: 19,
+                title: "RIWAYAT MUTASI SALDO AKTIVITAS",
+                price: 50000,
+                originalPrice: 110000,
+                imageUrl: "https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/screenshot_2025-09-26-19-47-29-420_com9104280623179358489.jpg",
+                category: "TRANSAKSI",
+                sold: 10,
+                demoVideoId: "SMyGn3Wukrc"
+            }];
+
+            const productGrid = document.getElementById('productGrid');
+            const searchInput = document.getElementById('searchInput');
+            const desktopCategoryButtonsContainer = document.getElementById('desktopCategoryButtons');
+            const mobileCategoryButtonsContainer = document.getElementById('mobileCategoryButtons');
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileCategoryModal = document.getElementById('mobile-category-modal');
+            const closeMobileCategoryModal = document.getElementById('closeMobileCategoryModal');
+
+            let activeCategory = 'Semua';
+
+            // Fungsi untuk memformat angka menjadi format mata uang Rupiah
+            function formatRupiah(number) {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                }).format(number);
+            }
+
+            // Function to render products
+            function renderProducts(filteredProducts) {
+                productGrid.innerHTML = ''; // Clear existing products
+                if (filteredProducts.length === 0) {
+                    productGrid.innerHTML = '<p class="text-center text-gray-500 col-span-full">Tidak ada produk yang ditemukan.</p>';
+                    return;
+                }
+                filteredProducts.forEach(product => {
+                    const priceFormatted = formatRupiah(product.price);
+                    const originalPriceFormatted = product.originalPrice ? formatRupiah(product.originalPrice) : '';
+                    const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+
+                    const productCard = `
+                        <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col space-y-4 transition-transform transform hover:scale-105 duration-300">
                             <!-- Top: Product Image with Phone Frame -->
                             <div class="product-card-image-container mx-auto">
                                 <div class="phone-frame">
@@ -485,256 +476,209 @@
                             </div>
                         </div>
                     `;
-          productGrid.innerHTML += productCard;
-        });
-        attachImageModalListeners();
-        attachBuyNowListeners();
-        attachDemoButtonListeners();
-      }
-      
-      // Function to filter and search products
-      function filterAndSearch() {
-        const searchTerm = searchInput.value.toLowerCase();
-        let filteredProducts = products;
-        
-        // Filter by category first
-        if (activeCategory !== 'Semua') {
-          filteredProducts = filteredProducts.filter(product => product.category === activeCategory);
-        }
-        
-        // Then search by title
-        if (searchTerm) {
-          filteredProducts = filteredProducts.filter(product => product.title.toLowerCase().includes(searchTerm));
-        }
-        
-        renderProducts(filteredProducts);
-      }
-      
-      // Function to generate and attach category buttons
-      function setupCategoryButtons() {
-        const categories = ['Semua', ...new Set(products.map(p => p.category))];
-        categoryButtonsContainer.innerHTML = '';
-        categories.forEach(category => {
-          const button = document.createElement('button');
-          button.textContent = category;
-          button.classList.add(
-            'category-button',
-            'font-medium',
-            'px-6',
-            'py-2',
-            'rounded-lg',
-            'text-nowrap'
-          );
-          if (category === 'Semua') {
-            button.classList.add('bg-blue-600', 'text-white');
-          } else {
-            button.classList.remove('bg-blue-600', 'text-white');
-            button.classList.add('bg-white', 'text-gray-800');
-          }
-          
-          button.addEventListener('click', () => {
-            activeCategory = category;
-            updateCategoryButtons();
+                    productGrid.innerHTML += productCard;
+                });
+                attachImageModalListeners();
+                attachBuyNowListeners();
+                attachDemoButtonListeners();
+            }
+
+            // Function to filter and search products
+            function filterAndSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let filteredProducts = products;
+
+                // Filter by category first
+                if (activeCategory !== 'Semua') {
+                    filteredProducts = filteredProducts.filter(product => product.category === activeCategory);
+                }
+
+                // Then search by title
+                if (searchTerm) {
+                    filteredProducts = filteredProducts.filter(product => product.title.toLowerCase().includes(searchTerm));
+                }
+
+                renderProducts(filteredProducts);
+                updateCategoryButtons(activeCategory); // Keep buttons synchronized
+            }
+
+            // Function to generate and attach category buttons to both containers
+            function setupCategoryButtons() {
+                const categories = ['Semua', ...new Set(products.map(p => p.category))];
+
+                desktopCategoryButtonsContainer.innerHTML = '';
+                mobileCategoryButtonsContainer.innerHTML = '';
+
+                categories.forEach(category => {
+                    // Create button for Desktop/Horizontal
+                    const desktopButton = createCategoryButton(category, desktopCategoryButtonsContainer === mobileCategoryButtonsContainer);
+                    desktopCategoryButtonsContainer.appendChild(desktopButton);
+
+                    // Create button for Mobile/Grid
+                    const mobileButton = createCategoryButton(category, false); // Mobile buttons should be full width of grid cell
+                    mobileButton.classList.add('w-full', 'justify-center', 'text-center'); // Added styling for mobile grid
+                    mobileCategoryButtonsContainer.appendChild(mobileButton);
+                });
+
+                // Set initial active state
+                updateCategoryButtons(activeCategory);
+            }
+
+            function createCategoryButton(category, isHorizontal = true) {
+                const button = document.createElement('button');
+                button.textContent = category;
+                button.classList.add(
+                    'category-button',
+                    'font-medium',
+                    'py-2',
+                    'rounded-lg',
+                    'text-nowrap',
+                    'shadow-md',
+                    isHorizontal ? 'px-6' : 'px-3'
+                );
+                button.classList.add('bg-white', 'text-gray-800'); // Default style
+
+                button.addEventListener('click', () => {
+                    activeCategory = category;
+                    filterAndSearch();
+                    if (mobileCategoryModal.style.display === 'flex') {
+                        // Close modal after selecting category on mobile
+                        mobileCategoryModal.style.display = 'none';
+                    }
+                });
+                return button;
+            }
+
+            // Function to update button styles in both containers
+            function updateCategoryButtons(currentCategory) {
+                [desktopCategoryButtonsContainer, mobileCategoryButtonsContainer].forEach(container => {
+                    const buttons = container.querySelectorAll('.category-button');
+                    buttons.forEach(button => {
+                        if (button.textContent === currentCategory) {
+                            button.classList.add('bg-blue-600', 'text-white');
+                            button.classList.remove('bg-white', 'text-gray-800');
+                        } else {
+                            button.classList.remove('bg-blue-600', 'text-white');
+                            button.classList.add('bg-white', 'text-gray-800');
+                        }
+                    });
+                });
+            }
+
+            // --- Modal Functionality ---
+
+            // Image Modal (Existing logic)
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('full-image');
+            const closeImageModal = document.getElementById('closeImageModal');
+
+            function attachImageModalListeners() {
+                const productImages = document.querySelectorAll('.product-image');
+                productImages.forEach(image => {
+                    image.addEventListener('click', function() {
+                        imageModal.style.display = 'flex';
+                        modalImage.src = this.src;
+                    });
+                });
+            }
+
+            closeImageModal.addEventListener('click', function() {
+                imageModal.style.display = 'none';
+            });
+
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                }
+            });
+
+            // Video Modal (Existing logic)
+            const videoModal = document.getElementById('video-modal');
+            const youtubeVideoPlayer = document.getElementById('youtube-video-player');
+            const closeVideoModal = document.getElementById('closeVideoModal');
+
+            function attachDemoButtonListeners() {
+                const demoButtons = document.querySelectorAll('.demo-btn');
+                demoButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const videoId = this.getAttribute('data-video-id');
+                        youtubeVideoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                        videoModal.style.display = 'flex';
+                    });
+                });
+            }
+
+            closeVideoModal.addEventListener('click', function() {
+                youtubeVideoPlayer.src = ''; // Stop video playback
+                videoModal.style.display = 'none';
+            });
+
+            videoModal.addEventListener('click', function(e) {
+                if (e.target === videoModal) {
+                    youtubeVideoPlayer.src = ''; // Stop video playback
+                    videoModal.style.display = 'none';
+                }
+            });
+
+            // Payment Modal (Existing logic)
+            const paymentModal = document.getElementById('payment-modal');
+            const closePaymentModal = document.getElementById('closePaymentModal');
+            const whatsappConfirmBtn = document.getElementById('whatsappConfirm');
+            const paymentAmountSpan = document.getElementById('payment-amount');
+            const paymentProductTitle = document.getElementById('payment-product-title');
+
+            function attachBuyNowListeners() {
+                const buyButtons = document.querySelectorAll('.buy-now-btn');
+                buyButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productTitle = this.getAttribute('data-title');
+                        const productPrice = parseFloat(this.getAttribute('data-price'));
+
+                        paymentProductTitle.textContent = productTitle;
+                        paymentAmountSpan.textContent = formatRupiah(productPrice);
+
+                        const message = `Halo, saya ingin membeli produk "${productTitle}" dengan total pembayaran ${formatRupiah(productPrice)}. Saya sudah melakukan pembayaran dan mohon dicek.`;
+                        whatsappConfirmBtn.href = `https://wa.me/6282339162744?text=${encodeURIComponent(message)}`;
+
+                        paymentModal.style.display = 'flex';
+                    });
+                });
+            }
+
+            closePaymentModal.addEventListener('click', function() {
+                paymentModal.style.display = 'none';
+            });
+
+            paymentModal.addEventListener('click', function(e) {
+                if (e.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+            });
+
+            // --- Mobile Category Menu Logic (New) ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileCategoryModal.style.display = 'flex';
+            });
+
+            closeMobileCategoryModal.addEventListener('click', () => {
+                mobileCategoryModal.style.display = 'none';
+            });
+
+            mobileCategoryModal.addEventListener('click', (e) => {
+                // Close when clicking the dark backdrop
+                if (e.target === mobileCategoryModal) {
+                    mobileCategoryModal.style.display = 'none';
+                }
+            });
+
+            // --- Fungsionalitas Tombol WhatsApp yang Dapat Digeser (Dihapus) ---
+
+            // Initial setup
+            setupCategoryButtons();
             filterAndSearch();
-          });
-          categoryButtonsContainer.appendChild(button);
+            searchInput.addEventListener('input', filterAndSearch);
         });
-      }
-      
-      // Function to update button styles
-      function updateCategoryButtons() {
-        const buttons = categoryButtonsContainer.querySelectorAll('.category-button');
-        buttons.forEach(button => {
-          if (button.textContent === activeCategory) {
-            button.classList.add('bg-blue-600', 'text-white');
-            button.classList.remove('bg-white', 'text-gray-800');
-          } else {
-            button.classList.remove('bg-blue-600', 'text-white');
-            button.classList.add('bg-white', 'text-gray-800');
-          }
-        });
-      }
-      
-      // --- Modal Functionality ---
-      
-      // Image Modal
-      const imageModal = document.getElementById('image-modal');
-      const modalImage = document.getElementById('full-image');
-      const closeImageModal = document.getElementById('closeImageModal');
-      
-      function attachImageModalListeners() {
-        const productImages = document.querySelectorAll('.product-image');
-        productImages.forEach(image => {
-          image.addEventListener('click', function() {
-            imageModal.style.display = 'flex';
-            modalImage.src = this.src;
-          });
-        });
-      }
-      
-      closeImageModal.addEventListener('click', function() {
-        imageModal.style.display = 'none';
-      });
-      
-      imageModal.addEventListener('click', function(e) {
-        if (e.target === imageModal) {
-          imageModal.style.display = 'none';
-        }
-      });
-      
-      // Video Modal
-      const videoModal = document.getElementById('video-modal');
-      const youtubeVideoPlayer = document.getElementById('youtube-video-player');
-      const closeVideoModal = document.getElementById('closeVideoModal');
-      
-      function attachDemoButtonListeners() {
-        const demoButtons = document.querySelectorAll('.demo-btn');
-        demoButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            const videoId = this.getAttribute('data-video-id');
-            youtubeVideoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            videoModal.style.display = 'flex';
-          });
-        });
-      }
-      
-      closeVideoModal.addEventListener('click', function() {
-        youtubeVideoPlayer.src = ''; // Stop video playback
-        videoModal.style.display = 'none';
-      });
-      
-      videoModal.addEventListener('click', function(e) {
-        if (e.target === videoModal) {
-          youtubeVideoPlayer.src = ''; // Stop video playback
-          videoModal.style.display = 'none';
-        }
-      });
-      
-      // Payment Modal
-      const paymentModal = document.getElementById('payment-modal');
-      const closePaymentModal = document.getElementById('closePaymentModal');
-      const whatsappConfirmBtn = document.getElementById('whatsappConfirm');
-      const paymentAmountSpan = document.getElementById('payment-amount');
-      const paymentProductTitle = document.getElementById('payment-product-title');
-      
-      function attachBuyNowListeners() {
-        const buyButtons = document.querySelectorAll('.buy-now-btn');
-        buyButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            const productTitle = this.getAttribute('data-title');
-            const productPrice = parseFloat(this.getAttribute('data-price'));
-            
-            paymentProductTitle.textContent = productTitle;
-            paymentAmountSpan.textContent = formatRupiah(productPrice);
-            
-            const message = `Halo, saya ingin membeli produk "${productTitle}" dengan total pembayaran ${formatRupiah(productPrice)}. Saya sudah melakukan pembayaran dan mohon dicek.`;
-            whatsappConfirmBtn.href = `https://wa.me/6282339162744?text=${encodeURIComponent(message)}`;
-            
-            paymentModal.style.display = 'flex';
-          });
-        });
-      }
-      
-      closePaymentModal.addEventListener('click', function() {
-        paymentModal.style.display = 'none';
-      });
-      
-      paymentModal.addEventListener('click', function(e) {
-        if (e.target === paymentModal) {
-          paymentModal.style.display = 'none';
-        }
-      });
-      
-      // --- Fungsionalitas Tombol WhatsApp yang Dapat Digeser ---
-      const whatsappButton = document.getElementById('whatsapp-float');
-      let isDragging = false;
-      let initialX;
-      let initialY;
-      let xOffset = 0;
-      let yOffset = 0;
-      
-      function dragStart(e) {
-        // Tentukan apakah sentuhan atau klik
-        let clientX = e.clientX;
-        let clientY = e.clientY;
-        if (e.type === "touchstart") {
-          clientX = e.touches[0].clientX;
-          clientY = e.touches[0].clientY;
-        }
-        
-        // Hitung offset dari posisi sentuhan/klik ke sudut kiri atas tombol
-        xOffset = clientX - whatsappButton.getBoundingClientRect().left;
-        yOffset = clientY - whatsappButton.getBoundingClientRect().top;
-        
-        initialX = clientX;
-        initialY = clientY;
-        isDragging = false;
-        
-        whatsappButton.style.cursor = 'grabbing';
-        // Tambahkan event listener untuk mengakhiri drag
-        document.addEventListener('mouseup', dragEnd);
-        document.addEventListener('touchend', dragEnd);
-      }
-      
-      function drag(e) {
-        if (!initialX && !initialY) return;
-        
-        // Tentukan apakah sentuhan atau klik
-        let clientX = e.clientX;
-        let clientY = e.clientY;
-        if (e.type === "touchmove") {
-          clientX = e.touches[0].clientX;
-          clientY = e.touches[0].clientY;
-        }
-        
-        // Cek apakah pergerakan cukup besar untuk dianggap drag
-        const dragDistance = Math.sqrt(Math.pow(clientX - initialX, 2) + Math.pow(clientY - initialY, 2));
-        if (dragDistance > 5) { // Threshold 5px untuk membedakan klik dan drag
-          isDragging = true;
-        }
-        
-        e.preventDefault();
-        
-        const newX = clientX - xOffset;
-        const newY = clientY - yOffset;
-        
-        whatsappButton.style.left = `${newX}px`;
-        whatsappButton.style.top = `${newY}px`;
-        whatsappButton.style.right = 'auto'; // Matikan right dan bottom
-        whatsappButton.style.bottom = 'auto';
-      }
-      
-      function dragEnd() {
-        initialX = null;
-        initialY = null;
-        whatsappButton.style.cursor = 'grab';
-        document.removeEventListener('mouseup', dragEnd);
-        document.removeEventListener('touchend', dragEnd);
-      }
-      
-      whatsappButton.addEventListener('mousedown', dragStart);
-      document.addEventListener('mousemove', drag);
-      whatsappButton.addEventListener('touchstart', dragStart);
-      document.addEventListener('touchmove', drag);
-      
-      // Mencegah tindakan default (mengikuti tautan) jika terjadi drag
-      whatsappButton.addEventListener('click', (e) => {
-        if (isDragging) {
-          e.preventDefault();
-        }
-        isDragging = false; // Reset status drag
-      });
-      
-      // Set posisi awal balon WhatsApp
-      whatsappButton.style.right = '2rem';
-      whatsappButton.style.bottom = '2rem';
-      
-      // Initial setup
-      setupCategoryButtons();
-      filterAndSearch();
-      searchInput.addEventListener('input', filterAndSearch);
-    });
-  </script>
+    </script>
 </body>
 
 </html>
