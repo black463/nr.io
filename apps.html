@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wadah Modifikasi Aplikasi Mobile</title>
+    <!-- Memuat Tailwind CSS untuk styling yang cepat dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Tailwind untuk menggunakan font Inter -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9; /* Latar belakang abu-abu muda */
+        }
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#10b981', // Hijau yang cerah
+                        'dark-bg': '#1f2937', // Abu-abu gelap untuk latar belakang hero
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="pb-20">
+
+    <!-- 1. HEADER NAVIGASI (FIXED TOP) -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-xl mx-auto flex justify-between items-center p-3">
+            <div class="flex items-center space-x-2">
+                <!-- Logo/Nama Toko -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <span class="text-lg font-bold text-gray-800">MODIF.IO</span>
+            </div>
+            <!-- Ikon Navigasi Kanan -->
+            <div class="flex items-center space-x-4">
+                <button aria-label="Cari" class="text-gray-600 hover:text-primary-green transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button aria-label="Menu" class="text-gray-600 hover:text-primary-green transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA (TERBATAS LEBAR MAX-W-XL) -->
+    <main class="max-w-xl mx-auto">
+
+        <!-- 2. HERO SECTION / BANNER UTAMA -->
+        <section class="relative h-64 overflow-hidden shadow-lg mb-6 mx-2 mt-4 rounded-xl">
+            <!-- Link Unduh di Banner Utama (Contoh: Menuju Play Store) -->
+            <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="block h-full">
+                <!-- Ganti URL gambar di sini. Gunakan gambar beresolusi tinggi (misalnya 800x400) -->
+                <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250818_2205438735023074469171705.jpg" 
+                     alt="Banner Game Unggulan" 
+                     class="w-full h-full object-cover brightness-75 transition duration-300 hover:brightness-100">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-bg/60 to-transparent p-5 flex flex-col justify-end">
+                    <h1 class="text-2xl font-extrabold text-white mb-1">NR PAYMENT: APLIKASI PPOB TERBAIK</h1>
+                    <p class="text-sm text-gray-200 mb-3">Versi Khusus dengan Fitur Tak Terbatas!</p>
+                    <button class="w-full sm:w-1/2 md:w-1/3 py-2 bg-primary-green text-white font-semibold rounded-full shadow-lg transform transition duration-150 hover:bg-emerald-600 hover:scale-[1.02]">
+                        Unduh Sekarang
+                    </button>
+                </div>
+            </a>
+        </section>
+
+        <!-- 3. QUICK LINKS / KATEGORI -->
+        <section class="p-4 bg-white mx-2 rounded-xl shadow-md mb-6">
+            <div class="flex justify-around text-center">
+                
+                <!-- Link Kategori 1: Permainan (GANTI URL Play Store ke halaman kategori Game) -->
+                <a href="https://play.google.com/store/apps/category/GAME" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                    <div class="p-3 bg-red-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4.08l4.08 4.08H11zm5-1.08L11.92 11H16v4.08zM12 9.08L16 13.16V9.08H12zm-5 4.08V9.08h4.08L7 13.16zM11 7v4.08L6.92 7H11zm-4.08 6L11 8.92V13.08H6.92z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-700">Permainan</span>
+                </a>
+                
+                <!-- Link Kategori 2: Aplikasi (GANTI URL Play Store ke halaman kategori Aplikasi) -->
+                <a href="https://play.google.com/store/apps/category/APPLICATION" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                    <div class="p-3 bg-blue-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-700">Aplikasi</span>
+                </a>
+                
+                <!-- Link Kategori 3: Berita/Tips (Bisa menuju blog atau halaman internal Anda) -->
+                <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                    <div class="p-3 bg-yellow-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-700">Berita Mod</span>
+                </a>
+                
+                <!-- Link Kategori 4: Toko/Profil (Bisa menuju halaman akun atau profil Anda) -->
+                <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                    <div class="p-3 bg-purple-500 rounded-full text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <span class="text-xs font-medium text-gray-700">Profil Saya</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 4. GRID REKOMENDASI APLIKASI -->
+        <section class="p-4">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Rekomendasi Terbaik</h2>
+            
+            <!-- Grid 2x4 untuk mobile, 3xN untuk tablet/desktop kecil -->
+            <div class="grid grid-cols-4 sm:grid-cols-6 gap-y-6 gap-x-2">
+
+                <!-- Contoh Item Aplikasi 1: Crazy Rock -->
+                <!-- GANTI URL di sini dengan ID Aplikasi yang benar -->
+                <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/17563054855155839052678499072071.png" alt="Ikon Aplikasi CR" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">NR PAYMENT</span>
+                </a>
+                
+                <!-- Contoh Item Aplikasi 2: Clone Master -->
+                <a href="https://play.google.com/store/apps/details?id=com.clone.master" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/34d399/ffffff?text=CM" alt="Ikon Aplikasi CM" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Clone Master Pro</span>
+                </a>
+
+                <!-- Contoh Item Aplikasi 3: Bluebird -->
+                <a href="https://play.google.com/store/apps/details?id=com.bluebird.driver" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/60a5fa/ffffff?text=BD" alt="Ikon Aplikasi BD" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Bluebird Driver IOT</span>
+                </a>
+                
+                <!-- Contoh Item Aplikasi 4: Shopee -->
+                <a href="https://play.google.com/store/apps/details?id=com.shopee.app" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/ff7f50/ffffff?text=S" alt="Ikon Aplikasi S" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Shopee Premium</span>
+                </a>
+
+                <!-- Contoh Item Aplikasi 5: Roblox -->
+                <a href="https://play.google.com/store/apps/details?id=com.roblox.client" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/007bff/ffffff?text=R" alt="Ikon Aplikasi R" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Roblox Unlimited</span>
+                </a>
+
+                <!-- Contoh Item Aplikasi 6: GoTube -->
+                <a href="https://play.google.com/store/apps/details?id=com.gotube.app" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/9333ea/ffffff?text=GT" alt="Ikon Aplikasi GT" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">GoTube MP3 Mod</span>
+                </a>
+                
+                <!-- Contoh Item Aplikasi 7: The Spike -->
+                <a href="https://play.google.com/store/apps/details?id=com.the.spike" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/f97316/ffffff?text=TS" alt="Ikon Aplikasi TS" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">The Spike Volleyball</span>
+                </a>
+
+                <!-- Contoh Item Aplikasi 8: WA Business -->
+                <a href="https://play.google.com/store/apps/details?id=com.whatsapp.w4b" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
+                    <img src="https://placehold.co/64x64/22c55e/ffffff?text=W" alt="Ikon Aplikasi W" class="app-icon rounded-xl shadow-lg">
+                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">WhatsApp Business Mod</span>
+                </a>
+
+                <!-- Tambahkan lebih banyak item di sini -->
+
+            </div>
+            
+            <!-- Link Temukan Lebih Banyak (GANTI URL Play Store ke halaman pengembang atau daftar semua aplikasi Anda) -->
+            <div class="mt-8 text-center">
+                <a href="https://play.google.com/store/" target="_blank" class="text-primary-green font-semibold inline-flex items-center space-x-1 hover:underline transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Lihat Lebih Banyak Aplikasi</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. FOOTER (OPSIONAL: BISA DIGANTI DENGAN NAVIGATION BAR BAWAH) -->
+    <footer class="text-center py-4 text-xs text-gray-500">
+        &copy; 2024 Modif.io. Semua Hak Dilindungi.
+    </footer>
+
+</body>
+</html>
+
