@@ -18,6 +18,38 @@
             height: 64px;
             object-fit: cover;
         }
+        /* Mengatur padding body agar konten tidak tertutup navigasi bawah */
+        .content-padding {
+            padding-bottom: 80px; 
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .content-padding {
+                padding-bottom: 0; /* Hapus padding di desktop */
+            }
+        }
+
+        /* Sembunyikan scrollbar untuk pengalaman mobile yang lebih bersih (opsional) */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Styling khusus untuk kartu besar (Editor's Choice) */
+        .editor-card {
+            width: 280px; /* Lebar kartu di scroll horizontal */
+        }
+        /* Transisi agar filter terlihat lebih halus */
+        .app-item {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Wrapper konten utama yang membatasi lebar di desktop (max-w-7xl) */
+        /* Gunakan max-w-xl di mobile, dan perlebar di desktop. */
+        .desktop-container {
+            max-width: 1280px; /* max-w-7xl di tailwind */
+        }
     </style>
     <script>
         tailwind.config = {
@@ -32,171 +64,481 @@
         }
     </script>
 </head>
-<body class="pb-20">
+<body class="content-padding">
 
     <!-- 1. HEADER NAVIGASI (FIXED TOP) -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="max-w-xl mx-auto flex justify-between items-center p-3">
-            <div class="flex items-center space-x-2">
-                <!-- Logo/Nama Toko -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-                <span class="text-lg font-bold text-gray-800">APK STORE.ID</span>
-            </div>
-            <!-- Ikon Navigasi Kanan -->
-            <div class="flex items-center space-x-4">
-                <button aria-label="Cari" class="text-gray-600 hover:text-primary-green transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <!-- Container Header: Sekarang full-width, konten di dalamnya mengikuti lebar -->
+        <div class="w-full sm:px-8">
+             <div class="max-w-xl mx-auto sm:max-w-7xl flex justify-between items-center p-3">
+                <div class="flex items-center space-x-2">
+                    <!-- Logo/Nama Toko -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
-                </button>
-                <button aria-label="Menu" class="text-gray-600 hover:text-primary-green transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+                    <span class="text-lg font-bold text-gray-800">APK STORE.ID</span>
+                </div>
+                <!-- Ikon Menu Kanan & Pencarian Mobile -->
+                <div class="flex items-center space-x-4">
+                    <!-- Ikon Pencarian Mobile (Hanya muncul di mobile) -->
+                    <button id="search-toggle-mobile" aria-label="Cari" class="sm:hidden text-gray-600 hover:text-primary-green transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                    <button aria-label="Menu" class="text-gray-600 hover:text-primary-green transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- KONTEN UTAMA (TERBATAS LEBAR MAX-W-XL) -->
-    <main class="max-w-xl mx-auto">
+    <!-- FORM PENCARIAN (Responsif) -->
+    <div id="search-container" class="transition-all duration-300 transform 
+                                      -translate-y-full opacity-0 absolute top-14 left-0 right-0 z-40 bg-white shadow-lg 
+                                      sm:static sm:translate-y-0 sm:opacity-100 sm:p-0 sm:shadow-none sm:mt-4 sm:mb-4">
+        <!-- Konten Pencarian dibatasi di tengah (max-w-xl) -->
+        <div class="max-w-xl mx-auto sm:max-w-7xl px-4">
+            <div class="flex items-center bg-white sm:bg-gray-100 rounded-xl p-2 shadow-sm border border-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                <input 
+                    type="text" 
+                    id="search-input"
+                    oninput="filterApps()"
+                    placeholder="Cari aplikasi atau game..." 
+                    class="flex-1 px-3 py-2 bg-transparent focus:outline-none text-gray-700"
+                >
+                <button id="search-clear" class="text-gray-500 hover:text-gray-700 p-1 mr-1 hidden" onclick="clearSearch()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-        <!-- 2. HERO SECTION / BANNER UTAMA -->
-        <section class="relative h-64 overflow-hidden shadow-lg mb-6 mx-2 mt-4 rounded-xl">
-            <!-- Link Unduh di Banner Utama (Contoh: Menuju Play Store) -->
-            <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="block h-full">
-                <!-- Ganti URL gambar di sini. Gunakan gambar beresolusi tinggi (misalnya 800x400) -->
-                <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250818_2205438735023074469171705.jpg" 
-                     alt="Banner Game Unggulan" 
-                     class="w-full h-full object-cover brightness-75 transition duration-300 hover:brightness-100">
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-dark-bg/60 to-transparent p-5 flex flex-col justify-end">
-                    <h1 class="text-2xl font-extrabold text-white mb-1">NR PAYMENT: APLIKASI PPOB TERBAIK</h1>
-                    <p class="text-sm text-gray-200 mb-3">Versi Khusus dengan Fitur Tak Terbatas!</p>
-                    <button class="w-full sm:w-1/2 md:w-1/3 py-2 bg-primary-green text-white font-semibold rounded-full shadow-lg transform transition duration-150 hover:bg-emerald-600 hover:scale-[1.02]">
-                        Unduh Sekarang
-                    </button>
+
+    <!-- KONTEN UTAMA (FULL WIDTH DI DESKTOP) -->
+    <main class="w-full">
+        <!-- WRAPPER KONTEN UTAMA: Gunakan max-w-xl untuk mobile, dan max-w-7xl untuk desktop -->
+        <div class="max-w-xl mx-auto sm:max-w-7xl px-2 sm:px-8">
+
+            <!-- 2. HERO SECTION / BANNER UTAMA -->
+            <section class="relative h-64 overflow-hidden shadow-lg mb-6 mt-4 rounded-xl">
+                <!-- Link Unduh di Banner Utama (Contoh: Menuju Play Store) -->
+                <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="block h-full">
+                    <!-- Ganti URL gambar di sini. Gunakan gambar beresolusi tinggi (misalnya 800x400) -->
+                    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/20250818_2205438735023074469171705.jpg" 
+                         alt="Banner Game Unggulan" 
+                         class="w-full h-full object-cover brightness-75 transition duration-300 hover:brightness-100">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-bg/60 to-transparent p-5 flex flex-col justify-end">
+                        <h1 class="text-2xl font-extrabold text-white mb-1">NR PAYMENT: APLIKASI PPOB TERBAIK</h1>
+                        <p class="text-sm text-gray-200 mb-3">Versi Khusus dengan Fitur Tak Terbatas!</p>
+                        <button class="w-full sm:w-1/2 md:w-1/3 py-2 bg-primary-green text-white font-semibold rounded-full shadow-lg transform transition duration-150 hover:bg-emerald-600 hover:scale-[1.02]">
+                            Unduh Sekarang
+                        </button>
+                    </div>
+                </a>
+            </section>
+
+            <!-- 3. QUICK LINKS / KATEGORI -->
+            <section class="p-4 bg-white rounded-xl shadow-md mb-6">
+                <div class="flex justify-around text-center">
+                    
+                    <!-- Link Kategori 1: Permainan -->
+                    <a href="https://play.google.com/store/apps/category/GAME" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                        <div class="p-3 bg-red-500 rounded-full text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4.08l4.08 4.08H11zm5-1.08L11.92 11H16v4.08zM12 9.08L16 13.16V9.08H12zm-5 4.08V9.08h4.08L7 13.16zM11 7v4.08L6.92 7H11zm-4.08 6L11 8.92V13.08H6.92z"/></svg>
+                        </div>
+                        <span class="text-xs font-medium text-gray-700">Permainan</span>
+                    </a>
+                    
+                    <!-- Link Kategori 2: Aplikasi -->
+                    <a href="https://play.google.com/store/apps/category/APPLICATION" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                        <div class="p-3 bg-blue-500 rounded-full text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"/></svg>
+                        </div>
+                        <span class="text-xs font-medium text-gray-700">Aplikasi</span>
+                    </a>
+                    
+                    <!-- Link Kategori 3: Berita/Tips -->
+                    <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                        <div class="p-3 bg-yellow-500 rounded-full text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        </div>
+                        <span class="text-xs font-medium text-gray-700">Berita Mod</span>
+                    </a>
+                    
+                    <!-- Link Kategori 4: Toko/Profil -->
+                    <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
+                        <div class="p-3 bg-purple-500 rounded-full text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <span class="text-xs font-medium text-gray-700">Profil Saya</span>
+                    </a>
                 </div>
-            </a>
-        </section>
+            </section>
 
-        <!-- 3. QUICK LINKS / KATEGORI -->
-        <section class="p-4 bg-white mx-2 rounded-xl shadow-md mb-6">
-            <div class="flex justify-around text-center">
+
+
+            <!-- 5. GRID REKOMENDASI APLIKASI -->
+            <section class="p-4 sm:px-0">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Rekomendasi Terbaik</h2>
                 
-                <!-- Link Kategori 1: Permainan (GANTI URL Play Store ke halaman kategori Game) -->
-                <a href="https://play.google.com/store/apps/category/GAME" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
-                    <div class="p-3 bg-red-500 rounded-full text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4.08l4.08 4.08H11zm5-1.08L11.92 11H16v4.08zM12 9.08L16 13.16V9.08H12zm-5 4.08V9.08h4.08L7 13.16zM11 7v4.08L6.92 7H11zm-4.08 6L11 8.92V13.08H6.92z"/></svg>
+                <!-- Grid 2x4 untuk mobile, 3xN untuk tablet/desktop kecil -->
+                <div id="rekomendasi-grid" class="grid grid-cols-4 sm:grid-cols-6 gap-y-6 gap-x-2">
+
+                    <!-- Contoh Item Aplikasi 1: Crazy Rock -->
+                    <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="nr payment">
+                        <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/17563054855155839052678499072071.png" alt="Ikon Aplikasi CR" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">NR PAYMENT</span>
+                    </a>
+                    
+                    <!-- Contoh Item Aplikasi 2: Clone Master -->
+                    <a href="https://play.google.com/store/apps/details?id=com.clone.master" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="clone master pro">
+                        <img src="https://placehold.co/64x64/34d399/ffffff?text=CM" alt="Ikon Aplikasi CM" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Clone Master Pro</span>
+                    </a>
+
+                    <!-- Contoh Item Aplikasi 3: Bluebird -->
+                    <a href="https://play.google.com/store/apps/details?id=com.bluebird.driver" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="bluebird driver iot">
+                        <img src="https://placehold.co/64x64/60a5fa/ffffff?text=BD" alt="Ikon Aplikasi BD" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Bluebird Driver IOT</span>
+                    </a>
+                    
+                    <!-- Contoh Item Aplikasi 4: Shopee -->
+                    <a href="https://play.google.com/store/apps/details?id=com.shopee.id" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="shopee">
+                        <img src="https://images.seeklogo.com/logo-png/37/1/shopee-logo-png_seeklogo-378738.png" alt="Ikon Aplikasi S" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Shopee</span>
+                    </a>
+
+                    <!-- Contoh Item Aplikasi 5: Roblox -->
+                    <a href="https://play.google.com/store/apps/details?id=com.roblox.client" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="roblox">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTdWMZqq63u-AqVY0OD_XAXP9ENON3MB90UA&s" alt="Ikon Aplikasi R" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Roblox</span>
+                    </a>
+
+                    <!-- Contoh Item Aplikasi 6: GoTube -->
+                    <a href="https://play.google.com/store/apps/details?id=premium.gotube.adblock.utube" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="gotube">
+                        <img src="data:image/png;base64,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" alt="Ikon Aplikasi GT" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">GoTube</span>
+                    </a>
+                    
+                    <!-- Contoh Item Aplikasi 7: The Spike -->
+                    <a href="https://play.google.com/store/apps/details?id=com.the.spike" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="the spike volleyball">
+                        <img src="https://placehold.co/64x64/f97316/ffffff?text=TS" alt="Ikon Aplikasi TS" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">The Spike Volleyball</span>
+                    </a>
+
+                    <!-- Contoh Item Aplikasi 8: WA Business -->
+                    <a href="https://play.google.com/store/apps/details?id=com.whatsapp.w4b" target="_blank" class="app-item flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105" data-name="whatsapp wa business">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCmGSsNS6G0Z9wRjI7WBwxBcB4c0fZC4oxXQ&s" alt="Ikon Aplikasi W" class="app-icon rounded-xl shadow-lg">
+                        <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">WhatsApp</span>
+                    </a>
+
+                </div>
+                
+
+            <!-- 4. HORIZONTAL SCROLL: PILIHAN EDITOR MINGGUAN -->
+            <section class="mt-4">
+                <!-- Header Section: Title and Arrow -->
+                <div class="flex justify-between items-center px-2 mb-3 sm:px-0">
+                    <h2 class="text-xl font-bold text-gray-800">Pilihan Terbaik</h2>
+                    <a href="#" class="text-gray-500 hover:text-primary-green transition" aria-label="Lihat Semua Pilihan Editor">
+                        <!-- Ikon Panah Kanan -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </a>
+                </div>
+
+                <!-- Scrollable Container -->
+                <div id="editor-choice-list" class="flex overflow-x-scroll space-x-3 pb-4 px-2 sm:px-0 scrollbar-hide">
+                    
+                    <!-- Editor Card 1: Upland - Real Estate Sim -->
+                    <div class="app-item flex-shrink-0 editor-card rounded-xl overflow-hidden shadow-lg bg-white border border-gray-200" data-name="upland real estate sim">
+                        <a href="#" class="block">
+                            <!-- Banner Image -->
+                            <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/ungu-dan-biru-modern-futuristik-seminar-ai-banner.png" 
+                                 alt="Banner Upland - Real Estate Sim" 
+                                 class="w-full h-32 object-cover">
+                            
+                            <div class="p-3 flex items-start space-x-3">
+                                <!-- App Icon -->
+                                <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/09/ungu-dan-biru-modern-futuristik-seminar-ai-banner.png" alt="Ikon Upland" class="app-icon rounded-lg shadow-md">
+                                
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-gray-800 line-clamp-1 app-name">Upland - Real Estate Sim</p>
+                                    <p class="text-sm text-gray-500 line-clamp-1">Ciptakan Sejarah. Secara Digital.</p>
+                                    <!-- Rating -->
+                                    <div class="flex items-center text-xs text-gray-500 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                        <span>8.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <span class="text-xs font-medium text-gray-700">Permainan</span>
-                </a>
-                
-                <!-- Link Kategori 2: Aplikasi (GANTI URL Play Store ke halaman kategori Aplikasi) -->
-                <a href="https://play.google.com/store/apps/category/APPLICATION" target="_blank" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
-                    <div class="p-3 bg-blue-500 rounded-full text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"/></svg>
+                    
+                    <!-- Editor Card 2: Game Simulasi Kota -->
+                    <div class="app-item flex-shrink-0 editor-card rounded-xl overflow-hidden shadow-lg bg-white border border-gray-200" data-name="simulasi pembangun kota city builder">
+                        <a href="#" class="block">
+                            <!-- Banner Image -->
+                            <img src="https://placehold.co/280x140/3b82f6/ffffff?text=Banner+Kota+Sim" 
+                                 alt="Banner Game Simulasi Kota" 
+                                 class="w-full h-32 object-cover">
+                            
+                            <div class="p-3 flex items-start space-x-3">
+                                <!-- App Icon -->
+                                <img src="https://placehold.co/64x64/3b82f6/ffffff?text=City" alt="Ikon Game Kota" class="app-icon rounded-lg shadow-md">
+                                
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-gray-800 line-clamp-1 app-name">Simulasi Pembangun Kota</p>
+                                    <p class="text-sm text-gray-500 line-clamp-1">Rancang, Bangun, Kuasai Metropolis Anda.</p>
+                                    <!-- Rating -->
+                                    <div class="flex items-center text-xs text-gray-500 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                        <span>8.5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <span class="text-xs font-medium text-gray-700">Aplikasi</span>
-                </a>
-                
-                <!-- Link Kategori 3: Berita/Tips (Bisa menuju blog atau halaman internal Anda) -->
-                <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
-                    <div class="p-3 bg-yellow-500 rounded-full text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+
+                    <!-- Editor Card 3: MONKEY MAYHEM -->
+                    <div class="app-item flex-shrink-0 editor-card rounded-xl overflow-hidden shadow-lg bg-white border border-gray-200" data-name="monkey mayhem epic quest">
+                        <a href="#" class="block">
+                            <!-- Banner Image -->
+                            <img src="https://placehold.co/280x140/dc2626/ffffff?text=Banner+Monyet+Gila" 
+                                 alt="Banner Monkey Mayhem" 
+                                 class="w-full h-32 object-cover">
+                            
+                            <div class="p-3 flex items-start space-x-3">
+                                <!-- App Icon -->
+                                <img src="https://placehold.co/64x64/f59e0b/000000?text=MM" alt="Ikon Monkey Mayhem" class="app-icon rounded-lg shadow-md">
+                                
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-gray-800 line-clamp-1 app-name">Monkey Mayhem: Epic Quest</p>
+                                    <p class="text-sm text-gray-500 line-clamp-1">Kumpulkan dan Taklukkan!</p>
+                                    <!-- Rating -->
+                                    <div class="flex items-center text-xs text-gray-500 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                        <span>7.8</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <span class="text-xs font-medium text-gray-700">Berita Mod</span>
-                </a>
-                
-                <!-- Link Kategori 4: Toko/Profil (Bisa menuju halaman akun atau profil Anda) -->
-                <a href="#" class="flex flex-col items-center space-y-1 p-2 hover:bg-gray-100 rounded-lg transition">
-                    <div class="p-3 bg-purple-500 rounded-full text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    
+                </div>
+            </section>
+
+
+            <!-- 7. HORIZONTAL SCROLL: PERMAINAN POPULER (24 JAM) -->
+            <section class="mt-8">
+                <!-- Header Section: Title and Arrow -->
+                <div class="flex justify-between items-center px-2 mb-3 sm:px-0">
+                    <h2 class="text-xl font-bold text-gray-800">Permainan Populer</h2>
+                    <a href="#" class="text-gray-500 hover:text-primary-green transition" aria-label="Lihat Semua Permainan Populer">
+                        <!-- Ikon Panah Kanan -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </a>
+                </div>
+
+                <!-- Scrollable Container -->
+                <div id="populer-list-container" class="flex overflow-x-scroll space-x-4 pb-4 px-2 sm:px-0 scrollbar-hide">
+                    
+                    <!-- App Item 1: Uma Musume -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="uma musume">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/d97706/ffffff?text=Uma" alt="Ikon Uma Musume" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Uma Musume</span>
+                            <!-- Rating -->
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>9.0</span>
+                            </div>
+                        </a>
                     </div>
-                    <span class="text-xs font-medium text-gray-700">Profil Saya</span>
-                </a>
-            </div>
-        </section>
+                    
+                    <!-- App Item 2: eFootball -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="efootball 2024">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/ef4444/ffffff?text=eFB" alt="Ikon eFootball" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">eFootball™ 2024</span>
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>8.6</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- App Item 3: EA FC Mobile -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="ea sports fc mobile">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/3b82f6/ffffff?text=FC" alt="Ikon EA FC Mobile" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">EA SPORTS FC™ MOBILE</span>
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>8.0</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- App Item 4: Roblox -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="roblox">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/000000/ffffff?text=RBX" alt="Ikon Roblox" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Roblox</span>
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>8.1</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- App Item 5: Mobile Legends -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="mobile legends">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/8b5cf6/ffffff?text=ML" alt="Ikon Mobile Legends" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Mobile Legends</span>
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>8.9</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- App Item 6: Free Fire -->
+                    <div class="app-item flex-shrink-0 w-24 text-center" data-name="free fire max">
+                        <a href="#" class="block transform transition duration-150 hover:scale-105">
+                            <img src="https://placehold.co/64x64/f97316/ffffff?text=FF" alt="Ikon Free Fire" class="app-icon rounded-xl shadow-lg mx-auto">
+                            <span class="text-xs mt-1 text-gray-700 line-clamp-2 app-name">Free Fire MAX</span>
+                            <div class="flex items-center justify-center text-xs text-gray-500 mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-yellow-400 mr-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.817 2.046a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.817-2.046a1 1 0 00-1.175 0l-2.817 2.046c-.784.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.721c-.783-.57-.381-1.81.588-1.81h3.461a1 1 0 00.95-.69l1.07-3.292z" /></svg>
+                                <span>8.5</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                </div>
+            </section>
 
-        <!-- 4. GRID REKOMENDASI APLIKASI -->
-        <section class="p-4">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Rekomendasi Terbaik</h2>
-            
-            <!-- Grid 2x4 untuk mobile, 3xN untuk tablet/desktop kecil -->
-            <div class="grid grid-cols-4 sm:grid-cols-6 gap-y-6 gap-x-2">
 
-                <!-- Contoh Item Aplikasi 1: Crazy Rock -->
-                <!-- GANTI URL di sini dengan ID Aplikasi yang benar -->
-                <a href="https://black463.github.io/payment.io/ps.html" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/08/17563054855155839052678499072071.png" alt="Ikon Aplikasi CR" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">NR PAYMENT</span>
-                </a>
-                
-                <!-- Contoh Item Aplikasi 2: Clone Master -->
-                <a href="https://play.google.com/store/apps/details?id=com.clone.master" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://placehold.co/64x64/34d399/ffffff?text=CM" alt="Ikon Aplikasi CM" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Clone Master Pro</span>
-                </a>
 
-                <!-- Contoh Item Aplikasi 3: Bluebird -->
-                <a href="https://play.google.com/store/apps/details?id=com.bluebird.driver" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://placehold.co/64x64/60a5fa/ffffff?text=BD" alt="Ikon Aplikasi BD" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Bluebird Driver IOT</span>
-                </a>
-                
-                <!-- Contoh Item Aplikasi 4: Shopee -->
-                <a href="https://play.google.com/store/apps/details?id=com.shopee.id" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://images.seeklogo.com/logo-png/37/1/shopee-logo-png_seeklogo-378738.png" alt="Ikon Aplikasi S" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Shopee</span>
-                </a>
-
-                <!-- Contoh Item Aplikasi 5: Roblox -->
-                <a href="https://play.google.com/store/apps/details?id=com.roblox.client" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTdWMZqq63u-AqVY0OD_XAXP9ENON3MB90UA&s" alt="Ikon Aplikasi R" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">Roblox</span>
-                </a>
-
-                <!-- Contoh Item Aplikasi 6: GoTube -->
-                <a href="https://play.google.com/store/apps/details?id=premium.gotube.adblock.utube" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="data:image/png;base64,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" alt="Ikon Aplikasi GT" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">GoTube</span>
-                </a>
-                
-                <!-- Contoh Item Aplikasi 7: The Spike -->
-                <a href="https://play.google.com/store/apps/details?id=com.the.spike" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://placehold.co/64x64/f97316/ffffff?text=TS" alt="Ikon Aplikasi TS" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">The Spike Volleyball</span>
-                </a>
-
-                <!-- Contoh Item Aplikasi 8: WA Business -->
-                <a href="https://play.google.com/store/apps/details?id=com.whatsapp.w4b" target="_blank" class="flex flex-col items-center text-center cursor-pointer transform transition duration-150 hover:scale-105">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCmGSsNS6G0Z9wRjI7WBwxBcB4c0fZC4oxXQ&s" alt="Ikon Aplikasi W" class="app-icon rounded-xl shadow-lg">
-                    <span class="text-xs mt-1 text-gray-700 line-clamp-2">WhatsApp</span>
-                </a>
-
-                <!-- Tambahkan lebih banyak item di sini -->
-
-            </div>
-            
-            <!-- Link Temukan Lebih Banyak (GANTI URL Play Store ke halaman pengembang atau daftar semua aplikasi Anda) -->
-            <div class="mt-8 text-center">
-                <a href="https://play.google.com/store/" target="_blank" class="text-primary-green font-semibold inline-flex items-center space-x-1 hover:underline transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Lihat Lebih Banyak Aplikasi</span>
-                </a>
-            </div>
-        </section>
+        </div>
 
     </main>
-
-    <!-- 5. FOOTER (OPSIONAL: BISA DIGANTI DENGAN NAVIGATION BAR BAWAH) -->
-    <footer class="text-center py-4 text-xs text-gray-500">
-        &copy; 2024 Apk Store.id. Semua Hak Dilindungi.
+                    <!-- Link Temukan Lebih Banyak (GANTI URL Play Store ke halaman pengembang atau daftar semua aplikasi Anda) -->
+                <div class="mt-8 text-center">
+                    <a href="https://play.google.com/store/" target="_blank" class="text-primary-green font-semibold inline-flex items-center space-x-1 hover:underline transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Lihat Lebih Banyak Aplikasi</span>
+                    </a>
+                </div>
+                </section>
+    <!-- 9. FOOTER DESKTOP (Pengganti Bottom Nav Bar) -->
+    <footer class="mt-12 bg-gray-800 text-white p-6 hidden sm:block">
+        <!-- Footer ini sekarang full-width, tetapi isinya dibatasi dan dipusatkan -->
+        <div class="max-w-xl mx-auto sm:max-w-7xl flex flex-col sm:flex-row justify-between items-center text-sm">
+            <p>&copy; 2024 Apk Store.id. Semua Hak Dilindungi.</p>
+            <div class="flex space-x-4 mt-2 sm:mt-0">
+                <a href="#" class="hover:text-primary-green transition">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-primary-green transition">Ketentuan Layanan</a>
+            </div>
+        </div>
     </footer>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        const searchContainer = document.getElementById('search-container');
+        const searchToggleMobile = document.getElementById('search-toggle-mobile');
+        const searchClear = document.getElementById('search-clear');
+        
+        // Memastikan input dan tombol hapus terlihat/tersembunyi saat input berubah
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                searchClear.classList.remove('hidden');
+            } else {
+                searchClear.classList.add('hidden');
+            }
+            filterApps(); // Panggil filter saat input berubah
+        });
+
+        // Toggle visibility pencarian di mode mobile
+        if (searchToggleMobile) {
+            searchToggleMobile.addEventListener('click', () => {
+                const isHidden = searchContainer.classList.contains('-translate-y-full');
+                if (isHidden) {
+                    // Tampilkan
+                    searchContainer.classList.remove('-translate-y-full', 'opacity-0');
+                    searchContainer.classList.add('translate-y-0', 'opacity-100', 'fixed'); 
+                    // Fokuskan input setelah muncul
+                    setTimeout(() => searchInput.focus(), 300);
+                } else {
+                    // Sembunyikan
+                    searchContainer.classList.remove('translate-y-0', 'opacity-100', 'fixed');
+                    searchContainer.classList.add('-translate-y-full', 'opacity-0');
+                    searchInput.blur(); // Hilangkan fokus
+                }
+            });
+        }
+        
+        // Fungsi membersihkan pencarian
+        window.clearSearch = function() {
+            searchInput.value = '';
+            searchClear.classList.add('hidden');
+            filterApps(); // Panggil filter untuk menampilkan semua item kembali
+        }
+    });
+
+
+    /**
+     * Fungsi untuk menyaring daftar aplikasi berdasarkan input pencarian.
+     */
+    window.filterApps = function() {
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const appItems = document.querySelectorAll('.app-item');
+        
+        // Tampilkan/Sembunyikan tombol hapus
+        const searchClear = document.getElementById('search-clear');
+        if (query.length > 0) {
+            searchClear.classList.remove('hidden');
+        } else {
+            searchClear.classList.add('hidden');
+        }
+
+        // 1. Logika Penyaringan
+        appItems.forEach(item => {
+            // Menggunakan data-name untuk pencarian
+            const appName = item.getAttribute('data-name');
+            // Cek apakah nama aplikasi mengandung query pencarian
+            const matches = appName && appName.includes(query);
+
+            if (matches || query === '') {
+                // Jika cocok atau query kosong, tampilkan item
+                item.style.display = ''; 
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            } else {
+                // Jika tidak cocok, sembunyikan item
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.95)';
+                // Sembunyikan item setelah transisi selesai
+                setTimeout(() => {
+                    if (item.style.opacity === '0') {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
