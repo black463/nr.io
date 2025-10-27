@@ -479,18 +479,14 @@
                                 <div>
                                     <h3 class="text-md font-bold text-gray-800 mb-1">${product.title}</h3>
                                     <div class="flex items-baseline space-x-2 mb-2">
-                                        <span class="text-xl font-bold text-green-600">${priceFormatted}</span>
-                                        ${hasDiscount ? `<span class="text-sm text-gray-400 line-through">${originalPriceFormatted}</span>` : ''}
-                                    </div>
-                                    <div class="flex items-center text-gray-500 text-sm mb-4">
-                                        <span class="text-red-500 mr-1">🔥</span> ${product.sold} Terjual
+                                        <span class="text-lg lg:text-xl font-bold text-green-600">${priceFormatted}</span>
                                     </div>
                                 </div>
-                                <div class="flex flex-col space-y-2">
-                                    <button class="demo-btn bg-blue-500 text-white font-medium px-4 py-2 w-full rounded-lg shadow-lg hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center space-x-1" data-video-id="${product.demoVideoId}">
-                                        <span>Vidio</span>
+                                <div class="flex space-x-2">
+                                    <button class="demo-btn bg-blue-500 text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center space-x-1 flex-1 text-sm" data-video-id="${product.demoVideoId}">
+                                        <span>Demo</span>
                                     </button>
-                                    <button class="buy-now-btn bg-blue-600 text-white font-medium px-4 py-2 w-full rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-1" data-title="${product.title}" data-price="${product.price}">
+                                    <button class="buy-now-btn bg-blue-600 text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-1 flex-1 text-sm" data-title="${product.title}" data-price="${product.price}">
                                         <span>Beli</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -706,3 +702,6 @@
 </body>
 
 </html>
+
+
+
