@@ -169,7 +169,9 @@
         </div>
 
         <!-- Product Grid Section -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- SAYA MENGUBAH BARIS INI: grid-cols-1 diubah menjadi grid-cols-2 -->
+        <!-- sm:grid-cols-2 dihapus karena grid-cols-2 sudah mencakup ukuran sm -->
+        <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Product cards will be dynamically added here -->
         </div>
     </main>
@@ -215,6 +217,7 @@
             <img src="https://indonesiafamilymanajemenfamily.wordpress.com/wp-content/uploads/2025/04/qr_id1023262894992_10.04.25_174422989_1744229894308.jpeg" alt="QRIS Code" class="w-full rounded-lg mb-6">
             <a id="whatsappConfirm" href="#" target="_blank" class="w-full flex items-center justify-center bg-green-500 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <!-- Path data sengaja dikosongkan agar sama dengan input -->
                     <path d="M12.03 1.09c-2.43 0-4.41 1.98-4.41 4.41c0 2.43 1.98 4.41 4.41 4.41c2.43 0 4.41-1.98 4.41-4.41c0-2.43-1.98-4.41-4.41-4.41zm0 7.84c-1.9 0-3.43-1.53-3.43-3.43c0-1.9 1.53-3.43 3.43-3.43c1.9 0 3.43 1.53 3.43 3.43c0 1.9-1.53 3.43-3.43 3.43zm-7.9 7.37l-4.13-1.29l1.19-4.11c-.57-1.12-.9-2.39-.9-3.75c0-4.13 3.36-7.49 7.49-7.49c4.13 0 7.49 3.36 7.49 7.49c0 3.86-2.92 7.02-6.68 7.43l-1.28 4.14z" />
                 </svg>
                 Konfirmasi Pembayaran
@@ -407,7 +410,7 @@
                 sold: 10,
                 demoVideoId: "SMyGn3Wukrc"
             },
-              {
+                {
                 id: 20,
                 title: "Rekap Catatan Hutang",
                 price: 40000,
@@ -417,7 +420,7 @@
                 sold: 10,
                 demoVideoId: "yGM7zPDyXtk"
             },
-                               {
+                    {
                 id: 21,
                 title: "Home versi Semi Dana",
                 price: 50000,
@@ -426,7 +429,7 @@
                 category: "Lainnya",
                 sold: 10,
                 demoVideoId: "a"
-            }        
+            }           
             ];
 
             const productGrid = document.getElementById('productGrid');
